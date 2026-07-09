@@ -1,0 +1,116 @@
+{
+  "tournament": {
+    "name": "GG, No hay team",
+    "edition": "2026",
+    "subtitle": "Torneo 3v3 · Age of Empires II: DE",
+    "dates": "15 – 30 de Agosto · Sábados y Domingos",
+    "organizer": "Valencho",
+    "discord": "Canal oficial de Discord de Nacho AoE",
+    "logo": "logo.png",
+    "backgroundHeader": "background.jpeg",
+    "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=header",
+    "started": false
+  },
+  "infoCards": [
+    { "label": "Formato", "value": "3v3 · Conquista" },
+    { "label": "Mapas", "value": "Random Map" },
+    { "label": "ELO", "value": "800 – 1100" },
+    { "label": "Organiza", "value": "Valencho" },
+    { "label": "Inscripción", "value": "7 Jul – 8 Ago" },
+    { "label": "Partidas mín.", "value": "40 ranked" }
+  ],
+  "rules": [
+    {
+      "title": "Draft",
+      "text": "Civilizaciones libres ocultas sin repetir. Se juegan 3 partidas por serie (Bo5 la final)."
+    },
+    {
+      "title": "Mapas",
+      "text": "Se gira una ruleta con 6 mapas para definir el orden de la serie. El mapa seleccionado se juega y se elimina de la lista."
+    },
+    {
+      "title": "Sala",
+      "text": "La crea el equipo con mayor ELO acumulado. Obligatorio: ocultar civs, espectadores con 2 min de delay, servidor acordado."
+    },
+    {
+      "title": "Conducta",
+      "text": "Nada de ofensas, burlas o spam. Infracción = derrota automática."
+    },
+    {
+      "title": "Drops",
+      "text": "Se pausa y se intenta restaurar. Si no se puede, la organización decide reinicio o victoria."
+    },
+    {
+      "title": "Tolerancia",
+      "text": "15 min de espera desde la hora pactada. Si no están los 3, pierden por escritorio."
+    },
+    {
+      "title": "Discord",
+      "text": "Cada equipo en su sala de voz separada. Prohibido compartir pantalla en público."
+    }
+  ],
+  "rulesFile": "Reglas- Torneo 3v3 _GG, No hay team_.txt",
+  "schedule": [
+    { "phase": "Inscripción", "dates": "7 de julio – 8 de agosto" },
+    { "phase": "Octavos", "dates": "15 – 16 de agosto" },
+    { "phase": "Cuartos", "dates": "22 – 23 de agosto" },
+    { "phase": "Semifinal", "dates": "29 de agosto" },
+    { "phase": "Final", "dates": "30 de agosto" }
+  ],
+  "maps": [
+    { "name": "Arabia", "image": "https://static.wikia.nocookie.net/ageofempires/images/6/66/Rm_arabia.png/revision/latest?cb=20250409045149" },
+    { "name": "Claro Africano", "image": "https://static.wikia.nocookie.net/ageofempires/images/e/e6/Rm_african_clearing.png/revision/latest?cb=20250409050001" },
+    { "name": "Túnel Amazónico", "image": "https://static.wikia.nocookie.net/ageofempires/images/b/b0/Amazon_Tunnel_minimap_aoe2DE.PNG/revision/latest?cb=20221023011817" },
+    { "name": "Isla del Paraíso", "image": "https://static.wikia.nocookie.net/ageofempires/images/d/d5/Rm_paradise_island.png/revision/latest?cb=20250728145224" },
+    { "name": "Socotra", "image": "https://static.wikia.nocookie.net/ageofempires/images/d/d8/Rm_socotra.png/revision/latest?cb=20250409055228" },
+    { "name": "Arena", "image": "https://static.wikia.nocookie.net/ageofempires/images/7/72/Rm_arena.png/revision/latest?cb=20250409050205" },
+    { "name": "Oasis", "image": "https://static.wikia.nocookie.net/ageofempires/images/e/e8/Rm_oasis.png/revision/latest?cb=20250409055103" }
+  ],
+  "prize": {
+    "title": "Campeones Absolutos",
+    "description": "GG, No hay team – Edición 2026"
+  },
+  "fixture": {
+    "rounds": [
+      {
+        "name": "Octavos",
+        "bestOf": 3,
+        "matches": [
+          { "id": "oct_1", "team1": { "name": "Los Vikingos", "players": [ { "name": "Valencho", "elo": 1050, "nationality": "🇦🇷" }, { "name": "NachoAoE", "elo": 1020, "nationality": "🇦🇷" }, { "name": "Maty", "elo": 980, "nationality": "🇨🇱" } ] }, "team2": { "name": "Team Azteca", "players": [ { "name": "Cuauhtli", "elo": 1010, "nationality": "🇲🇽" }, { "name": "Jaguar", "elo": 990, "nationality": "🇲🇽" }, { "name": "Tlatoani", "elo": 970, "nationality": "🇲🇽" } ] }, "games": [ { "map": "Arabia", "winner": "team1" }, { "map": "Arena", "winner": "team2" }, { "map": "Socotra", "winner": "team1" } ], "winner": "team1" },
+          { "id": "oct_2", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "oct_3", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "oct_4", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "oct_5", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "oct_6", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "oct_7", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "oct_8", "team1": null, "team2": null, "games": [], "winner": null }
+        ]
+      },
+      {
+        "name": "Cuartos",
+        "bestOf": 3,
+        "matches": [
+          { "id": "cuart_1", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "cuart_2", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "cuart_3", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "cuart_4", "team1": null, "team2": null, "games": [], "winner": null }
+        ]
+      },
+      {
+        "name": "Semifinal",
+        "bestOf": 3,
+        "matches": [
+          { "id": "sem_1", "team1": null, "team2": null, "games": [], "winner": null },
+          { "id": "sem_2", "team1": null, "team2": null, "games": [], "winner": null }
+        ]
+      },
+      {
+        "name": "Final",
+        "bestOf": 5,
+        "matches": [
+          { "id": "final", "team1": null, "team2": null, "games": [], "winner": null }
+        ]
+      }
+    ]
+  }
+}
