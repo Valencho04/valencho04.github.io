@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor · GG, No hay team</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --surface2: #1c1c28;
+      --border: #2a2a3a;
+      --gold: #c9a84c;
+      --gold-dim: #8a7230;
+      --green: #3aa86b;
+      --red: #a83a3a;
+      --text: #e8e0d0;
+      --text-muted: #8a8678;
+      --radius: 8px;
+    }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    h1 { font-size: 1.5rem; color: var(--gold); margin-bottom: 4px; }
+    .sub { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px; }
+    .toolbar {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px;
+      position: sticky; top: 0; z-index: 10; background: var(--bg); padding: 8px 0;
+    }
+    .toolbar .spacer { flex: 1; }
+    .btn {
+      padding: 10px 20px; border-radius: var(--radius); font-weight: 600;
+      font-size: 0.9rem; cursor: pointer; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text); transition: all .15s;
+    }
+    .btn:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
+      color: #0a0a0f; border: none;
+    }
+    .btn-primary:hover { opacity: .9; color: #0a0a0f; }
+    .btn-danger { border-color: var(--red); color: var(--red); }
+    .btn-danger:hover { background: var(--red); color: #fff; }
+    .btn-success { border-color: var(--green); color: var(--green); }
+    .btn-success:hover { background: var(--green); color: #fff; }
+    .file-input-wrap { position: relative; overflow: hidden; }
+    .file-input-wrap input[type=file] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer;
+    }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .section-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px; margin-bottom: 16px;
+    }
+    .section-card h2 {
+      font-size: 1rem; color: var(--gold); margin-bottom: 16px;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .field { margin-bottom: 14px; }
+    .field label {
+      display: block; font-size: 0.8rem; color: var(--text-muted);
+      margin-bottom: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: 10px 12px; border-radius: var(--radius);
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.9rem; font-family: inherit;
+      transition: border-color .15s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      outline: none; border-color: var(--gold);
+    }
+    .field textarea { min-height: 60px; resize: vertical; }
+    .field .hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .field-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .field-row-3 {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+    }
+    .field-row-4 {
+      display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px;
+    }
+    .inline-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
+
+    .array-item {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 14px; margin-bottom: 10px;
+      position: relative;
+    }
+    .array-item .remove-btn {
+      position: absolute; top: 8px; right: 8px;
+      background: none; border: none; color: var(--red); cursor: pointer;
+      font-size: 1.2rem; line-height: 1; padding: 4px 8px; border-radius: 4px;
+    }
+    .array-item .remove-btn:hover { background: rgba(168,58,58,.15); }
+    .array-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .array-header h3 { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+    .add-btn {
+      background: none; border: 1px dashed var(--border); color: var(--text-muted);
+      padding: 8px 16px; border-radius: var(--radius); cursor: pointer; font-size: 0.85rem;
+      width: 100%; transition: all .15s; margin-top: 4px;
+    }
+    .add-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    .toggle-wrap { display: flex; align-items: center; gap: 10px; }
+    .toggle-wrap input[type=checkbox] {
+      width: 44px; height: 22px; appearance: none; border-radius: 11px;
+      background: var(--border); cursor: pointer; position: relative; transition: .15s;
+      flex-shrink: 0;
+    }
+    .toggle-wrap input[type=checkbox]::after {
+      content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%;
+      background: var(--text-muted); top: 2px; left: 2px; transition: .15s;
+    }
+    .toggle-wrap input[type=checkbox]:checked {
+      background: var(--gold);
+    }
+    .toggle-wrap input[type=checkbox]:checked::after {
+      left: 24px; background: #0a0a0f;
+    }
+
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      background: var(--surface); border: 1px solid var(--green);
+      color: var(--green); padding: 12px 24px; border-radius: var(--radius);
+      font-weight: 600; font-size: 0.9rem; opacity: 0; transform: translateY(20px);
+      transition: all .3s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 700px) {
+      body { padding: 12px; }
+      .field-row, .field-row-3, .field-row-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .nav-tabs {
+      display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 20px;
+    }
+    .nav-tabs button {
+      padding: 8px 16px; border-radius: var(--radius) var(--radius) 0 0;
+      background: var(--surface); border: 1px solid var(--border);
+      border-bottom: none; color: var(--text-muted); cursor: pointer;
+      font-size: 0.85rem; font-weight: 600; transition: all .15s;
+    }
+    .nav-tabs button:hover { color: var(--text); }
+    .nav-tabs button.active {
+      background: var(--surface); color: var(--gold); border-color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+
+<h1>⚙ Editor · GG, No hay team</h1>
+<p class="sub">Cargá un data.json, editá los campos y exportalo.</p>
+
+<div class="toolbar">
+  <div class="file-input-wrap btn">
+    📂 Cargar JSON
+    <input type="file" id="fileInput" accept=".json">
+  </div>
+  <button class="btn btn-primary" onclick="exportJSON()">💾 Exportar JSON</button>
+  <button class="btn btn-success" onclick="copyJSON()">📋 Copiar al portapapeles</button>
+  <span class="spacer"></span>
+  <button class="btn btn-danger" onclick="resetData()">↺ Reiniciar</button>
+</div>
+
+<div class="nav-tabs" id="tabs">
+  <button class="active" data-tab="general">General</button>
+  <button data-tab="info">Info Cards</button>
+  <button data-tab="rules">Reglas</button>
+  <button data-tab="schedule">Cronograma</button>
+  <button data-tab="maps">Mapas</button>
+  <button data-tab="prize">Premio</button>
+  <button data-tab="fixture">Fixture</button>
+  <button data-tab="raw">Raw JSON</button>
+</div>
+
+<div id="panels">
+
+<div class="panel active" id="panel-general">
+  <div class="section-card">
+    <h2>General</h2>
+    <div class="field-row">
+      <div class="field"><label>Nombre del torneo</label><input id="f_name" value="GG, No hay team"></div>
+      <div class="field"><label>Edición</label><input id="f_edition" value="2026"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Subtítulo</label><input id="f_subtitle" value="Torneo 3v3 · Age of Empires II: DE"></div>
+      <div class="field"><label>Fechas</label><input id="f_dates" value="15 – 30 de Agosto · Sábados y Domingos"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Organizador</label><input id="f_organizer" value="Valencho"></div>
+      <div class="field"><label>Discord / Canal</label><input id="f_discord" value="Canal oficial de Discord de Nacho AoE"></div>
+    </div>
+    <div class="field-row-3">
+      <div class="field"><label>Logo (ruta/URL)</label><input id="f_logo" value="logo.png"></div>
+      <div class="field"><label>Background (ruta/URL)</label><input id="f_bg" value="background.jpeg"></div>
+      <div class="field"><label>URL inscripción</label><input id="f_regUrl" value="https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=header"></div>
+    </div>
+    <div class="field">
+      <label>Archivo reglamento</label>
+      <input id="f_rulesFile" value="Reglas- Torneo 3v3 _GG, No hay team_.txt">
+    </div>
+    <div class="field">
+      <div class="toggle-wrap">
+        <input type="checkbox" id="f_started">
+        <label for="f_started" style="color:var(--text-muted);font-size:0.85rem;cursor:pointer;font-weight:600;">Torneo iniciado (cambia orden de secciones y oculta botón inscripción)</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel" id="panel-info">
+  <div class="section-card">
+    <h2>Info Cards</h2>
+    <div id="infoCardsContainer"></div>
+    <button class="add-btn" onclick="addInfoCard()">+ Agregar Info Card</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-rules">
+  <div class="section-card">
+    <h2>Reglas Destacadas</h2>
+    <div id="rulesContainer"></div>
+    <button class="add-btn" onclick="addRule()">+ Agregar Regla</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-schedule">
+  <div class="section-card">
+    <h2>Cronograma</h2>
+    <div id="scheduleContainer"></div>
+    <button class="add-btn" onclick="addSchedule()">+ Agregar Fase</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-maps">
+  <div class="section-card">
+    <h2>Mapas</h2>
+    <div id="mapsContainer"></div>
+    <button class="add-btn" onclick="addMap()">+ Agregar Mapa</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-prize">
+  <div class="section-card">
+    <h2>Premio</h2>
+    <div class="field"><label>Título</label><input id="f_prizeTitle" value="Campeones Absolutos"></div>
+    <div class="field"><label>Descripción</label><input id="f_prizeDesc" value="GG, No hay team – Edición 2026"></div>
+  </div>
+</div>
+
+<div class="panel" id="panel-fixture">
+  <div class="section-card">
+    <h2>Fixture</h2>
+    <div id="roundsContainer"></div>
+    <button class="add-btn" onclick="addRound()">+ Agregar Ronda</button>
+  </div>
+</div>
+
+<div class="panel" id="panel-raw">
+  <div class="section-card">
+    <h2>Raw JSON</h2>
+    <p class="sub" style="margin-bottom:8px;">Editá directamente el JSON. Cuidado con la sintaxis.</p>
+    <div class="field"><textarea id="rawJson" style="min-height:500px;font-family:monospace;font-size:0.8rem;"></textarea></div>
+    <button class="btn btn-primary" onclick="applyRaw()">Aplicar cambios desde Raw</button>
+  </div>
+</div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── state ───────────────────────────────────────────────────────────────
+let data = {};
+
+const defaultData = {
+  "tournament": {
+    "name": "GG, No hay team",
+    "edition": "2026",
+    "subtitle": "Torneo 3v3 · Age of Empires II: DE",
+    "dates": "15 – 30 de Agosto · Sábados y Domingos",
+    "organizer": "Valencho",
+    "discord": "Canal oficial de Discord de Nacho AoE",
+    "logo": "logo.png",
+    "backgroundHeader": "background.jpeg",
+    "registrationUrl": "",
+    "started": false
+  },
+  "infoCards": [
+    { "label": "Formato", "value": "3v3 · Conquista" },
+    { "label": "ELO", "value": "800 – 1100" }
+  ],
+  "rules": [
+    { "title": "Draft", "text": "Civilizaciones libres ocultas sin repetir." }
+  ],
+  "rulesFile": "Reglas- Torneo 3v3 _GG, No hay team_.txt",
+  "schedule": [
+    { "phase": "Inscripción", "dates": "7 de julio – 8 de agosto" },
+    { "phase": "Final", "dates": "30 de agosto" }
+  ],
+  "maps": [
+    { "name": "Arabia", "image": "https://static.wikia.nocookie.net/ageofempires/images/6/66/Rm_arabia.png/revision/latest?cb=20250409045149" },
+    { "name": "Arena", "image": "https://static.wikia.nocookie.net/ageofempires/images/7/72/Rm_arena.png/revision/latest?cb=20250409050205" }
+  ],
+  "prize": { "title": "Campeones Absolutos", "description": "GG, No hay team – Edición 2026" },
+  "fixture": { "rounds": [] }
+};
+
+// ─── init ────────────────────────────────────────────────────────────────
+function init() {
+  data = JSON.parse(JSON.stringify(defaultData));
+  renderAll();
+}
+
+// ─── tabs ────────────────────────────────────────────────────────────────
+document.getElementById('tabs').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  if (btn.dataset.tab === 'raw') updateRaw();
+});
+
+// ─── file load ───────────────────────────────────────────────────────────
+document.getElementById('fileInput').addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      data = JSON.parse(ev.target.result);
+      renderAll();
+      toast('JSON cargado correctamente');
+    } catch (err) {
+      toast('Error al parsear JSON: ' + err.message, 'error');
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+// ─── read from form ─────────────────────────────────────────────────────
+function readFromForm() {
+  const t = data.tournament;
+  t.name = document.getElementById('f_name').value;
+  t.edition = document.getElementById('f_edition').value;
+  t.subtitle = document.getElementById('f_subtitle').value;
+  t.dates = document.getElementById('f_dates').value;
+  t.organizer = document.getElementById('f_organizer').value;
+  t.discord = document.getElementById('f_discord').value;
+  t.logo = document.getElementById('f_logo').value;
+  t.backgroundHeader = document.getElementById('f_bg').value;
+  t.registrationUrl = document.getElementById('f_regUrl').value;
+  t.started = document.getElementById('f_started').checked;
+  data.rulesFile = document.getElementById('f_rulesFile').value;
+  data.prize.title = document.getElementById('f_prizeTitle').value;
+  data.prize.description = document.getElementById('f_prizeDesc').value;
+
+  // infoCards
+  data.infoCards = [];
+  document.querySelectorAll('#infoCardsContainer .array-item').forEach(el => {
+    data.infoCards.push({
+      label: el.querySelector('.ic-label').value,
+      value: el.querySelector('.ic-value').value
+    });
+  });
+
+  // rules
+  data.rules = [];
+  document.querySelectorAll('#rulesContainer .array-item').forEach(el => {
+    data.rules.push({
+      title: el.querySelector('.r-title').value,
+      text: el.querySelector('.r-text').value
+    });
+  });
+
+  // schedule
+  data.schedule = [];
+  document.querySelectorAll('#scheduleContainer .array-item').forEach(el => {
+    data.schedule.push({
+      phase: el.querySelector('.s-phase').value,
+      dates: el.querySelector('.s-dates').value
+    });
+  });
+
+  // maps
+  data.maps = [];
+  document.querySelectorAll('#mapsContainer .array-item').forEach(el => {
+    data.maps.push({
+      name: el.querySelector('.m-name').value,
+      image: el.querySelector('.m-image').value
+    });
+  });
+
+  // fixture rounds
+  data.fixture.rounds = [];
+  document.querySelectorAll('#roundsContainer .round-item').forEach(el => {
+    const round = {
+      name: el.querySelector('.r-name').value,
+      bestOf: parseInt(el.querySelector('.r-bo').value) || 3,
+      matches: []
+    };
+    el.querySelectorAll('.match-item').forEach(mel => {
+      const t1 = readTeam(mel, '1');
+      const t2 = readTeam(mel, '2');
+      const games = readGames(mel);
+      round.matches.push({
+        id: mel.querySelector('.m-id').value,
+        team1: t1,
+        team2: t2,
+        games: games,
+        winner: mel.querySelector('.m-winner').value || null
+      });
+    });
+    data.fixture.rounds.push(round);
+  });
+}
+
+function readTeam(el, prefix) {
+  const hasTeam = el.querySelector(`.t${prefix}-has`).checked;
+  if (!hasTeam) return null;
+  const players = [];
+  el.querySelectorAll(`.t${prefix}-players .player-item`).forEach(pel => {
+    players.push({
+      name: pel.querySelector('.p-name').value,
+      elo: parseInt(pel.querySelector('.p-elo').value) || null,
+      nationality: pel.querySelector('.p-flag').value || null
+    });
+  });
+  return {
+    name: el.querySelector(`.t${prefix}-name`).value,
+    players: players
+  };
+}
+
+function readGames(el) {
+  const games = [];
+  el.querySelectorAll('.game-item').forEach(gel => {
+    games.push({
+      map: gel.querySelector('.g-map').value,
+      winner: gel.querySelector('.g-winner').value || null
+    });
+  });
+  return games;
+}
+
+// ─── render all ──────────────────────────────────────────────────────────
+function renderAll() {
+  const d = data;
+
+  // general
+  document.getElementById('f_name').value = d.tournament.name || '';
+  document.getElementById('f_edition').value = d.tournament.edition || '';
+  document.getElementById('f_subtitle').value = d.tournament.subtitle || '';
+  document.getElementById('f_dates').value = d.tournament.dates || '';
+  document.getElementById('f_organizer').value = d.tournament.organizer || '';
+  document.getElementById('f_discord').value = d.tournament.discord || '';
+  document.getElementById('f_logo').value = d.tournament.logo || '';
+  document.getElementById('f_bg').value = d.tournament.backgroundHeader || '';
+  document.getElementById('f_regUrl').value = d.tournament.registrationUrl || '';
+  document.getElementById('f_started').checked = !!d.tournament.started;
+  document.getElementById('f_rulesFile').value = d.rulesFile || '';
+
+  // prize
+  document.getElementById('f_prizeTitle').value = d.prize?.title || '';
+  document.getElementById('f_prizeDesc').value = d.prize?.description || '';
+
+  // arrays
+  renderInfoCards();
+  renderRules();
+  renderSchedule();
+  renderMaps();
+  renderFixture();
+  updateRaw();
+}
+
+// ─── info cards ──────────────────────────────────────────────────────────
+function renderInfoCards() {
+  const c = document.getElementById('infoCardsContainer');
+  c.innerHTML = (data.infoCards || []).map((ic, i) => `
+    <div class="array-item">
+      <button class="remove-btn" onclick="removeItem(this)">✕</button>
+      <div class="field-row">
+        <div class="field"><label>Label</label><input class="ic-label" value="${esc(ic.label)}"></div>
+        <div class="field"><label>Value</label><input class="ic-value" value="${esc(ic.value)}"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addInfoCard() {
+  data.infoCards = data.infoCards || [];
+  data.infoCards.push({ label: '', value: '' });
+  renderInfoCards();
+}
+
+// ─── rules ───────────────────────────────────────────────────────────────
+function renderRules() {
+  const c = document.getElementById('rulesContainer');
+  c.innerHTML = (data.rules || []).map((r, i) => `
+    <div class="array-item">
+      <button class="remove-btn" onclick="removeItem(this)">✕</button>
+      <div class="field-row">
+        <div class="field"><label>Título</label><input class="r-title" value="${esc(r.title)}"></div>
+        <div class="field"><label>Texto</label><input class="r-text" value="${esc(r.text)}"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addRule() {
+  data.rules = data.rules || [];
+  data.rules.push({ title: '', text: '' });
+  renderRules();
+}
+
+// ─── schedule ────────────────────────────────────────────────────────────
+function renderSchedule() {
+  const c = document.getElementById('scheduleContainer');
+  c.innerHTML = (data.schedule || []).map((s, i) => `
+    <div class="array-item">
+      <button class="remove-btn" onclick="removeItem(this)">✕</button>
+      <div class="field-row">
+        <div class="field"><label>Fase</label><input class="s-phase" value="${esc(s.phase)}"></div>
+        <div class="field"><label>Fechas</label><input class="s-dates" value="${esc(s.dates)}"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addSchedule() {
+  data.schedule = data.schedule || [];
+  data.schedule.push({ phase: '', dates: '' });
+  renderSchedule();
+}
+
+// ─── maps ────────────────────────────────────────────────────────────────
+function renderMaps() {
+  const c = document.getElementById('mapsContainer');
+  c.innerHTML = (data.maps || []).map((m, i) => `
+    <div class="array-item">
+      <button class="remove-btn" onclick="removeItem(this)">✕</button>
+      <div class="field-row">
+        <div class="field"><label>Nombre</label><input class="m-name" value="${esc(m.name)}"></div>
+        <div class="field"><label>Imagen URL</label><input class="m-image" value="${esc(m.image)}"></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addMap() {
+  data.maps = data.maps || [];
+  data.maps.push({ name: '', image: '' });
+  renderMaps();
+}
+
+// ─── prize ────────────────────────────────────────────────────────────────
+
+// ─── fixture ─────────────────────────────────────────────────────────────
+function renderFixture() {
+  const c = document.getElementById('roundsContainer');
+  const rounds = data.fixture?.rounds || [];
+  c.innerHTML = rounds.map((r, ri) => `
+    <div class="array-item round-item">
+      <button class="remove-btn" onclick="removeRound(this)">✕</button>
+      <div class="array-header"><h3>Ronda ${ri+1}</h3></div>
+      <div class="field-row-3">
+        <div class="field"><label>Nombre</label><input class="r-name" value="${esc(r.name)}"></div>
+        <div class="field"><label>Best of</label><input class="r-bo" type="number" min="1" max="7" step="2" value="${r.bestOf || 3}"></div>
+        <div style="align-self:end;padding-bottom:14px;"><button class="btn" onclick="addMatch(this)">+ Partido</button></div>
+      </div>
+      <div class="matches-list" style="margin-top:8px;">
+        ${(r.matches || []).map((m, mi) => renderMatchItem(m, mi)).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderMatchItem(m, mi) {
+  const t1 = m.team1;
+  const t2 = m.team2;
+  return `
+    <div class="array-item match-item" style="margin-left:16px;border-color:var(--gold-dim);">
+      <button class="remove-btn" onclick="removeMatch(this)">✕</button>
+      <div class="array-header"><h3>Partido ${mi+1}</h3></div>
+      <div class="field-row">
+        <div class="field" style="flex:1;"><label>ID</label><input class="m-id" value="${esc(m.id || '')}"></div>
+        <div class="field" style="flex:0 0 120px;">
+          <label>Ganador</label>
+          <select class="m-winner">
+            <option value="">—</option>
+            <option value="team1" ${m.winner === 'team1' ? 'selected' : ''}>Team 1</option>
+            <option value="team2" ${m.winner === 'team2' ? 'selected' : ''}>Team 2</option>
+          </select>
+        </div>
+      </div>
+      ${renderTeamFields(m, '1', t1)}
+      ${renderTeamFields(m, '2', t2)}
+      <div style="margin-top:10px;">
+        <div class="array-header"><h4>Juegos / Mapas</h4></div>
+        <div class="games-list">
+          ${(m.games || []).map((g, gi) => renderGameItem(g, gi)).join('')}
+        </div>
+        <button class="add-btn" style="margin-top:4px;" onclick="addGame(this)">+ Agregar juego</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderTeamFields(m, prefix, team) {
+  const hasTeam = team !== null && team !== undefined;
+  return `
+    <div style="margin-top:8px;padding:10px;background:var(--bg);border-radius:var(--radius);border:1px solid var(--border);">
+      <div class="toggle-wrap" style="margin-bottom:6px;">
+        <input type="checkbox" class="t${prefix}-has" ${hasTeam ? 'checked' : ''} onchange="toggleTeam(this,'${prefix}')">
+        <label style="font-size:0.8rem;color:var(--text-muted);font-weight:600;">Team ${prefix === '1' ? '1' : '2'} definido</label>
+      </div>
+      <div class="team-fields" style="${hasTeam ? '' : 'display:none;'}">
+        <div class="field"><label>Nombre del equipo</label><input class="t${prefix}-name" value="${hasTeam ? esc(team.name) : ''}"></div>
+        <div class="t${prefix}-players">
+          ${hasTeam ? (team.players || []).map((p, pi) => renderPlayer(p, prefix, pi)).join('') : ''}
+        </div>
+        <button class="add-btn" style="margin-top:4px;" onclick="addPlayer(this,'${prefix}')">+ Jugador</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderPlayer(p, prefix, pi) {
+  return `
+    <div class="array-item player-item" style="margin-top:6px;padding:10px;">
+      <button class="remove-btn" onclick="removePlayer(this)">✕</button>
+      <div class="field-row-4">
+        <div class="field"><label>Nombre</label><input class="p-name" value="${esc(p.name)}"></div>
+        <div class="field"><label>ELO</label><input class="p-elo" type="number" value="${p.elo || ''}"></div>
+        <div class="field"><label>Bandera</label><input class="p-flag" value="${esc(p.nationality || '')}" placeholder="🇦🇷"></div>
+      </div>
+    </div>
+  `;
+}
+
+function renderGameItem(g, gi) {
+  return `
+    <div class="array-item game-item" style="margin-top:6px;padding:10px;border-color:var(--border);">
+      <button class="remove-btn" onclick="removeGame(this)">✕</button>
+      <div class="field-row-3">
+        <div class="field"><label>Mapa</label><input class="g-map" value="${esc(g.map || '')}"></div>
+        <div class="field">
+          <label>Ganador</label>
+          <select class="g-winner">
+            <option value="">—</option>
+            <option value="team1" ${g.winner === 'team1' ? 'selected' : ''}>Team 1</option>
+            <option value="team2" ${g.winner === 'team2' ? 'selected' : ''}>Team 2</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function toggleTeam(checkbox, prefix) {
+  const container = checkbox.closest('.match-item') || checkbox.closest('.array-item');
+  const fields = container.querySelector(`.team-fields`);
+  fields.style.display = checkbox.checked ? '' : 'none';
+}
+
+function addMatch(btn) {
+  const roundItem = btn.closest('.round-item');
+  const matchesList = roundItem.querySelector('.matches-list');
+  const round = findRound(roundItem);
+  if (!round) return;
+  round.matches = round.matches || [];
+  round.matches.push({ id: '', team1: null, team2: null, games: [], winner: null });
+  renderFixture();
+}
+
+function removeRound(btn) {
+  const idx = Array.from(document.querySelectorAll('.round-item')).indexOf(btn.closest('.round-item'));
+  data.fixture.rounds.splice(idx, 1);
+  renderFixture();
+}
+
+function removeMatch(btn) {
+  const matchItem = btn.closest('.match-item');
+  const roundItem = matchItem.closest('.round-item');
+  const round = findRound(roundItem);
+  const idx = Array.from(roundItem.querySelectorAll('.match-item')).indexOf(matchItem);
+  if (round) round.matches.splice(idx, 1);
+  renderFixture();
+}
+
+function addPlayer(btn, prefix) {
+  const matchItem = btn.closest('.match-item');
+  const teamContainer = matchItem.querySelector(`.t${prefix}-players`);
+  const round = findRound(matchItem.closest('.round-item'));
+  const matchIdx = Array.from(matchItem.closest('.round-item').querySelectorAll('.match-item')).indexOf(matchItem);
+  const match = round.matches[matchIdx];
+  const team = match[prefix === '1' ? 'team1' : 'team2'];
+  if (team) {
+    team.players = team.players || [];
+    team.players.push({ name: '', elo: null, nationality: '' });
+  }
+  renderFixture();
+}
+
+function removePlayer(btn) {
+  // handled by re-render - we just mark and rerender
+  const playerItem = btn.closest('.player-item');
+  const matchItem = btn.closest('.match-item');
+  const roundItem = matchItem.closest('.round-item');
+  const round = findRound(roundItem);
+  const matchIdx = Array.from(roundItem.querySelectorAll('.match-item')).indexOf(matchItem);
+  const playerIdx = Array.from(matchItem.querySelectorAll('.player-item')).indexOf(playerItem);
+  const teamPrefix = matchItem.querySelector('.player-item')?.closest('[class*="t1-players"], [class*="t2-players"]') ?
+    (playerItem.closest('.t1-players') ? 'team1' : 'team2') : 'team1';
+  // determine which team based on the class
+  let teamKey = 'team1';
+  if (playerItem.closest('.t2-players')) teamKey = 'team2';
+  const match = round.matches[matchIdx];
+  if (match && match[teamKey]) {
+    match[teamKey].players.splice(playerIdx, 1);
+  }
+  renderFixture();
+}
+
+function addGame(btn) {
+  const matchItem = btn.closest('.match-item');
+  const roundItem = matchItem.closest('.round-item');
+  const round = findRound(roundItem);
+  const matchIdx = Array.from(roundItem.querySelectorAll('.match-item')).indexOf(matchItem);
+  const match = round.matches[matchIdx];
+  match.games = match.games || [];
+  match.games.push({ map: '', winner: null });
+  renderFixture();
+}
+
+function removeGame(btn) {
+  const gameItem = btn.closest('.game-item');
+  const matchItem = btn.closest('.match-item');
+  const roundItem = matchItem.closest('.round-item');
+  const round = findRound(roundItem);
+  const matchIdx = Array.from(roundItem.querySelectorAll('.match-item')).indexOf(matchItem);
+  const gameIdx = Array.from(matchItem.querySelectorAll('.game-item')).indexOf(gameItem);
+  const match = round.matches[matchIdx];
+  if (match) match.games.splice(gameIdx, 1);
+  renderFixture();
+}
+
+function addRound() {
+  data.fixture = data.fixture || { rounds: [] };
+  data.fixture.rounds.push({ name: '', bestOf: 3, matches: [] });
+  renderFixture();
+}
+
+function findRound(el) {
+  const idx = Array.from(document.querySelectorAll('.round-item')).indexOf(el);
+  return data.fixture.rounds[idx];
+}
+
+// ─── raw ─────────────────────────────────────────────────────────────────
+function updateRaw() {
+  try { readFromForm(); } catch(e) {}
+  document.getElementById('rawJson').value = JSON.stringify(data, null, 2);
+}
+
+function applyRaw() {
+  try {
+    data = JSON.parse(document.getElementById('rawJson').value);
+    renderAll();
+    toast('JSON aplicado correctamente');
+  } catch (err) {
+    toast('Error de sintaxis: ' + err.message, 'error');
+  }
+}
+
+// ─── remove item helper ──────────────────────────────────────────────────
+function removeItem(btn) {
+  const container = btn.closest('.section-card') || btn.closest('#infoCardsContainer, #rulesContainer, #scheduleContainer, #mapsContainer');
+  const parent = btn.closest('.array-item');
+  const idx = Array.from(parent.parentNode.children).filter(el => el.classList.contains('array-item')).indexOf(parent);
+  const containerId = container?.id || '';
+  if (containerId === 'infoCardsContainer') data.infoCards.splice(idx, 1);
+  else if (containerId === 'rulesContainer') data.rules.splice(idx, 1);
+  else if (containerId === 'scheduleContainer') data.schedule.splice(idx, 1);
+  else if (containerId === 'mapsContainer') data.maps.splice(idx, 1);
+  renderAll();
+}
+
+// ─── export ──────────────────────────────────────────────────────────────
+function exportJSON() {
+  try { readFromForm(); } catch(e) {}
+  const json = JSON.stringify(data, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'data.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('data.json descargado');
+}
+
+function copyJSON() {
+  try { readFromForm(); } catch(e) {}
+  navigator.clipboard.writeText(JSON.stringify(data, null, 2)).then(() => {
+    toast('JSON copiado al portapapeles');
+  }).catch(() => {
+    toast('Error al copiar', 'error');
+  });
+}
+
+function resetData() {
+  if (!confirm('¿Reiniciar todo los datos a valores por defecto?')) return;
+  data = JSON.parse(JSON.stringify(defaultData));
+  renderAll();
+  toast('Datos reiniciados');
+}
+
+// ─── toast ───────────────────────────────────────────────────────────────
+function toast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.borderColor = type === 'error' ? 'var(--red)' : 'var(--green)';
+  el.style.color = type === 'error' ? 'var(--red)' : 'var(--green)';
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+function esc(s) {
+  if (typeof s !== 'string') return s || '';
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ─── boot ────────────────────────────────────────────────────────────────
+init();
+
+// load from URL param ?file=... (for convenience)
+const params = new URLSearchParams(location.search);
+if (params.get('file') === 'data.json') {
+  fetch('data.json').then(r => r.json()).then(d => {
+    data = d;
+    renderAll();
+    toast('data.json cargado automáticamente');
+  }).catch(() => {});
+}
+</script>
+</body>
+</html>
