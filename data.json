@@ -9,7 +9,7 @@
     "logo": "logo.png",
     "backgroundHeader": "background.jpeg",
     "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=header",
-    "comenzó": falso
+    "comenzó": false
   },
   "tarjetas informativas": [
     { "label": "Formato", "value": "3v3 · Conquista" },
@@ -58,13 +58,13 @@
     { "fase": "Final", "fechas": "30 de agosto" }
   ],
   "mapas": [
-    { "name": "Arabia", "image": "https://static.wikia.nocookie.net/ageofempires/images/6/66/Rm_arabia.png/revision/latest?cb=20250409045149" },
+    { "nombre": "Arabia", "imagen": "https://static.wikia.nocookie.net/ageofempires/images/6/66/Rm_arabia.png/revision/latest?cb=20250409045149" },
     { "nombre": "Claro Africano", "imagen": "https://static.wikia.nocookie.net/ageofempires/images/e/e6/Rm_african_clearing.png/revision/latest?cb=20250409050001" },
     { "nombre": "Túnel Amazónico", "imagen": "https://static.wikia.nocookie.net/ageofempires/images/b/b0/Amazon_Tunnel_minimap_aoe2DE.PNG/revision/latest?cb=20221023011817" },
     { "nombre": "Isla del Paraíso", "imagen": "https://static.wikia.nocookie.net/ageofempires/images/d/d5/Rm_paradise_island.png/revision/latest?cb=20250728145224" },
-    { "name": "Socotra", "image": "https://static.wikia.nocookie.net/ageofempires/images/d/d8/Rm_socotra.png/revision/latest?cb=20250409055228" },
-    { "name": "Arena", "image": "https://static.wikia.nocookie.net/ageofempires/images/7/72/Rm_arena.png/revision/latest?cb=20250409050205" },
-    { "name": "Oasis", "image": "https://static.wikia.nocookie.net/ageofempires/images/e/e8/Rm_oasis.png/revision/latest?cb=20250409055103" }
+    { "nombre": "Socotra", "imagen": "https://static.wikia.nocookie.net/ageofempires/images/d/d8/Rm_socotra.png/revision/latest?cb=20250409055228" },
+    { "nombre": "Arena", "imagen": "https://static.wikia.nocookie.net/ageofempires/images/7/72/Rm_arena.png/revision/latest?cb=20250409050205" },
+    { "nombre": "Oasis", "imagen": "https://static.wikia.nocookie.net/ageofempires/images/e/e8/Rm_oasis.png/revision/latest?cb=20250409055103" }
   ],
   "premio": {
     "title": "Campeones Absolutos",
@@ -76,39 +76,31 @@
         "nombre": "Octavos",
         "bestOf": 3,
         "partidos": [
-          { "id": "oct_1", "team1": { "name": "Los Vikingos", "players": [ { "name": "Valencho", "elo": 1050, "nationality": "🇦🇷" }, { "name": "NachoAoE", "elo": 1020, "nationality": "🇦🇷" }, { "name": "Maty", "elo": 980, "nationality": "🇨🇱" } ] }, "team2": { "name": "Team Azteca", "players": [ { "name": "Cuauhtli", "elo": 1010, "nationality": "🇲🇽" }, { "name": "Jaguar", "elo": 990, "nationality": "🇲🇽" }, { "name": "Tlatoani", "elo": 970, "nacionalidad": "🇲🇽" } ] }, "juegos": [ { "mapa": "Arabia", "ganador": "equipo1" }, { "mapa": "Arena", "ganador": "equipo2" }, { "mapa": "Socotra", "ganador": "equipo1" } ], "ganador": "equipo1" },
-          { "id": "oct_2", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "oct_3", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "oct_4", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "oct_5", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "oct_6", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "oct_7", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "oct_8", "team1": null, "team2": null, "games": [], "winner": null }
-        ]
-      },
-      {
-        "nombre": "Cuartos",
-        "bestOf": 3,
-        "partidos": [
-          { "id": "cuart_1", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "cuart_2", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "cuart_3", "team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "cuart_4", "team1": null, "team2": null, "games": [], "winner": null }
-        ]
-      },
-      {
-        "nombre": "Semifinal",
-        "bestOf": 3,
-        "partidos": [
-          { "id": "sem_1", ​​"team1": null, "team2": null, "games": [], "winner": null },
-          { "id": "sem_2", "team1": null, "team2": null, "games": [], "winner": null }
-        ]
-      },
-      {
-        "nombre": "Final",
-        "bestOf": 5,
-        "partidos": [
-          { "id": "final", "team1": null, "team2": null, "games": [], "winner": null }
+          {
+            "id": "oct_1",
+            "team1": {
+              "name": "Los Vikingos",
+              "players": [
+                { "name": "Valencho", "elo": 1050, "nationality": "🇦🇷" },
+                { "name": "NachoAoE", "elo": 1020, "nationality": "🇦🇷" },
+                { "name": "Maty", "elo": 980, "nationality": "🇨🇱" }
+              ]
+            },
+            "team2": {
+              "name": "Team Azteca",
+              "players": [
+                { "name": "Cuauhtli", "elo": 1010, "nationality": "🇲🇽" },
+                { "name": "Jaguar", "elo": 990, "nationality": "🇲🇽" },
+                { "name": "Tlatoani", "elo": 970, "nacionalidad": "🇲🇽" }
+              ]
+            },
+            "juegos": [
+              { "mapa": "Arabia", "ganador": "equipo1" },
+              { "mapa": "Arena", "ganador": "equipo2" },
+              { "mapa": "Socotra", "ganador": "equipo1" }
+            ],
+            "ganador": "equipo1"
+          }
         ]
       }
     ]
