@@ -5,19 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GG, No hay team - Torneo 3v3 AoE II</title>
   <style>
-    section:has(#infoGrid) {
-      padding: 80px 0;
-    }
-    .info-card .value {
-      max-width: 150px;
-      margin: 0 auto;
-      word-wrap: break-word;
-      line-height: 1.2;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Inter:wght@400;600;700;800&display=swap');
 
-    :root { 
+    :root {
       --bg: #0a0a0f;
       --surface: #13131a;
       --border: #2a2a3a;
@@ -35,7 +27,6 @@
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
-      margin: 0;
     }
 
     .bg-texture {
@@ -93,7 +84,6 @@
       letter-spacing: 2px;
       text-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
       transition: font-size 0.3s;
-      margin: 0;
     }
 
     .hero .subtitle {
@@ -186,7 +176,6 @@
       color: var(--gold);
       margin-bottom: 24px;
       text-align: center;
-      margin-top: 0;
     }
 
     .info-grid {
@@ -211,13 +200,16 @@
       margin-bottom: 4px;
     }
 
+    .info-card .value {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
     .rules-list {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 0;
-      margin: 0;
     }
 
     .rules-list li {
@@ -325,10 +317,9 @@
       font-size: 1.6rem;
       color: var(--gold);
       margin-bottom: 8px;
-      margin-top: 0;
     }
 
-    .prize-box p { color: var(--text-muted); margin: 0; }
+    .prize-box p { color: var(--text-muted); }
 
     footer {
       text-align: center;
@@ -395,7 +386,6 @@
       font-family: 'MedievalSharp', cursive;
       font-size: 1.5rem;
       color: var(--gold);
-      margin: 0;
     }
 
     .round-format {
@@ -552,24 +542,14 @@
       margin-right: 4px;
     }
 
-    /* ESTILOS NUEVOS PARA CIVILIZACIONES Y MAPAS APILADOS */
     .map-result {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 6px 10px;
+      font-size: 0.78rem;
+      padding: 3px 10px;
       border-radius: 5px;
       border: 1px solid var(--border);
-      font-size: 0.78rem;
-      gap: 2px;
-    }
-    .map-result strong {
-      color: var(--text);
-    }
-    .map-result small {
-      font-size: 0.7rem;
-      color: var(--text-muted);
-      line-height: 1.1;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .map-result.team1-wins {
@@ -580,6 +560,10 @@
     .map-result.team2-wins {
       border-color: var(--red);
       color: var(--red);
+    }
+
+    .map-result .map-win-icon {
+      font-size: 0.65rem;
     }
 
     .empty-fixture {
@@ -670,8 +654,8 @@ function render(d) {
 
   const heroHtml = `
     <header class="hero">
-      <div class="hero-bg" style="background-image:url('${t.logo}')"></div>
-      <img src="${t.backgroundHeader}" alt="${t.name}" class="hero-logo">
+      <div class="hero-bg" style="background-image:url('${t.backgroundHeader}')"></div>
+      <img src="${t.logo}" alt="${t.name}" class="hero-logo">
       <h1>${t.name}</h1>
       ${heroStatusHtml}
       <p class="subtitle">${t.subtitle}</p>
@@ -810,18 +794,11 @@ function renderTbd() {
 }
 
 function renderGames(games) {
-  let html = '<div class="match-maps"><span class="match-maps-label">Mapas y Civs:</span>';
-  games.forEach((g) => {
-    // Si hay civilizaciones, generamos las etiquetas <small> para T1 y T2
-    const civs1 = g.civs && g.civs.team1 ? `<small>T1: ${g.civs.team1.join(', ')}</small>` : '';
-    const civs2 = g.civs && g.civs.team2 ? `<small>T2: ${g.civs.team2.join(', ')}</small>` : '';
-    
-    html += `
-      <span class="map-result">
-        <strong>${g.map}</strong>
-        ${civs1}
-        ${civs2}
-      </span>`;
+  let html = '<div class="match-maps"><span class="match-maps-label">Mapas:</span>';
+  games.forEach((g, i) => {
+    const cls = g.winner === 'team1' ? 'team1-wins' : g.winner === 'team2' ? 'team2-wins' : '';
+    const icon = g.winner === 'team1' ? '▲' : g.winner === 'team2' ? '▼' : '';
+    html += `<span class="map-result ${cls}">${icon} ${g.map}</span>`;
   });
   html += '</div>';
   return html;
