@@ -91,6 +91,15 @@
     }
     .inline-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
 
+    .g-civ {
+      width: 100%; padding: 10px 12px; border-radius: var(--radius);
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.9rem; font-family: inherit;
+      transition: border-color .15s;
+    }
+    .g-civ:focus { outline: none; border-color: var(--gold); }
+    .g-civ::placeholder { color: var(--text-muted); opacity: 0.6; }
+
     .array-item {
       background: var(--surface2); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 14px; margin-bottom: 10px;
@@ -207,13 +216,13 @@
       <div class="field"><label>Discord / Canal</label><input id="f_discord" value="Canal oficial de Discord de Nacho AoE"></div>
     </div>
     <div class="field-row-3">
-      <div class="field"><label>Logo (ruta/URL)</label><input id="f_logo" value="logo.png"></div>
-      <div class="field"><label>Background (ruta/URL)</label><input id="f_bg" value="background.jpeg"></div>
-      <div class="field"><label>URL inscripción</label><input id="f_regUrl" value="https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=header"></div>
+      <div class="field"><label>Logo (ruta/URL)</label><input id="f_logo" value="background.png"></div>
+      <div class="field"><label>Background (ruta/URL)</label><input id="f_bg" value="logo.png"></div>
+      <div class="field"><label>URL inscripción</label><input id="f_regUrl" value="https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=sharing&ouid=117786843446152372164"></div>
     </div>
     <div class="field">
       <label>Archivo reglamento</label>
-      <input id="f_rulesFile" value="Reglas- Torneo 3v3 _GG, No hay team_.txt">
+      <input id="f_rulesFile" value="Reglas-_Torneo_3v3__GG__No_hay_team_.docx">
     </div>
     <div class="field">
       <div class="toggle-wrap">
@@ -297,29 +306,1032 @@ const defaultData = {
     "dates": "15 – 30 de Agosto · Sábados y Domingos",
     "organizer": "Valencho",
     "discord": "Canal oficial de Discord de Nacho AoE",
-    "logo": "logo.png",
-    "backgroundHeader": "background.png",
-    "registrationUrl": "",
+    "logo": "background.png",
+    "backgroundHeader": "logo.png",
+    "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=sharing&ouid=117786843446152372164",
     "started": false
   },
   "infoCards": [
-    { "label": "Formato", "value": "3v3 · Conquista" },
-    { "label": "ELO", "value": "800 – 1100" }
+    {
+      "label": "Formato",
+      "value": "3v3 · Conquista"
+    },
+    {
+      "label": "Mapas",
+      "value": "Random Map"
+    },
+    {
+      "label": "ELO",
+      "value": "800 – 1100"
+    },
+    {
+      "label": "Organiza",
+      "value": "Valencho"
+    },
+    {
+      "label": "Inscripción",
+      "value": "10 Jul – 10 Ago"
+    },
+    {
+      "label": "Partidas mín.",
+      "value": "40 ranked"
+    }
   ],
   "rules": [
-    { "title": "Draft", "text": "Civilizaciones libres ocultas sin repetir." }
+    {
+      "title": "Admisión y ELO",
+      "text": "Todos los integrantes deben tener ELO histórico y actual entre 800 y 1100 en Ranked 1v1, con mínimo 40 partidas jugadas en ranked y perfil verificado contra smurfs."
+    },
+    {
+      "title": "Draft",
+      "text": "Civilizaciones libres ocultas sin repetir: cada jugador elige en secreto y no puede repetir civ en la serie. Se juegan 3 partidas por serie (Bo5 en la final)."
+    },
+    {
+      "title": "Mapas",
+      "text": "Se gira una ruleta con los mapas disponibles, sin repetición, para definir el orden de la serie. Cada mapa jugado se elimina de la lista."
+    },
+    {
+      "title": "Sala",
+      "text": "La arma el equipo con mayor ELO acumulado. Obligatorio: civs ocultas, espectadores con 2 min de delay, grabación activada y servidor acordado entre capitanes."
+    },
+    {
+      "title": "Conducta",
+      "text": "El chat se limita a saludo, pausas justificadas y GG/WP. Ofensas, burlas o spam provocativo son derrota automática para el equipo infractor."
+    },
+    {
+      "title": "Discord",
+      "text": "Cada equipo debe permanecer en su sala de voz asignada, separado del rival. Prohibido compartir pantalla en canales públicos."
+    },
+    {
+      "title": "Drops",
+      "text": "Se pausa y se intenta restaurar la partida. Si no es posible y hay una desventaja irremontable, el organizador define reinicio o victoria directa."
+    },
+    {
+      "title": "Horarios",
+      "text": "Tolerancia de 15 min desde la hora pactada; sin los 3 jugadores conectados se pierde por escritorio. Máximo 1 reprogramación por serie."
+    },
+    {
+      "title": "Premios",
+      "text": "El equipo campeón se corona como 'Campeones Absolutos de GG, No hay team – Edición 2026'."
+    }
   ],
-  "rulesFile": "Reglas- Torneo 3v3 _GG, No hay team_.txt",
+  "rulesFile": "Reglas-_Torneo_3v3__GG__No_hay_team_.docx",
   "schedule": [
-    { "phase": "Inscripción", "dates": "7 de julio – 8 de agosto" },
-    { "phase": "Final", "dates": "30 de agosto" }
+    {
+      "phase": "Inscripción",
+      "dates": "10 de julio – 10 de agosto"
+    },
+    {
+      "phase": "Octavos",
+      "dates": "15 – 16 de agosto"
+    },
+    {
+      "phase": "Cuartos",
+      "dates": "22 – 23 de agosto"
+    },
+    {
+      "phase": "Semifinal",
+      "dates": "29 de agosto"
+    },
+    {
+      "phase": "Final",
+      "dates": "30 de agosto"
+    }
   ],
   "maps": [
-    { "name": "Arabia", "image": "https://static.wikia.nocookie.net/ageofempires/images/6/66/Rm_arabia.png/revision/latest?cb=20250409045149" },
-    { "name": "Arena", "image": "https://static.wikia.nocookie.net/ageofempires/images/7/72/Rm_arena.png/revision/latest?cb=20250409050205" }
+    {
+      "name": "Arabia",
+      "image": "https://static.wikia.nocookie.net/ageofempires/images/6/66/Rm_arabia.png/revision/latest?cb=20250409045149"
+    },
+    {
+      "name": "Claro Africano",
+      "image": "https://static.wikia.nocookie.net/ageofempires/images/e/e6/Rm_african_clearing.png/revision/latest?cb=20250409050001"
+    },
+    {
+      "name": "Túnel Amazónico",
+      "image": "https://static.wikia.nocookie.net/ageofempires/images/0/00/Rm_amazon_tunnels.png/revision/latest/scale-to-width-down/268?cb=20250409050121"
+    },
+    {
+      "name": "Isla del Paraíso",
+      "image": "https://static.wikia.nocookie.net/ageofempires/images/d/d5/Rm_paradise_island.png/revision/latest?cb=20250728145224"
+    },
+    {
+      "name": "Socotra",
+      "image": "https://static.wikia.nocookie.net/ageofempires/images/d/d8/Rm_socotra.png/revision/latest?cb=20250409055228"
+    },
+    {
+      "name": "Arena",
+      "image": "https://static.wikia.nocookie.net/ageofempires/images/7/72/Rm_arena.png/revision/latest?cb=20250409050205"
+    },
+    {
+      "name": "Oasis",
+      "image": "https://static.wikia.nocookie.net/ageofempires/images/e/e8/Rm_oasis.png/revision/latest?cb=20250409055103"
+    }
   ],
-  "prize": { "title": "Campeones Absolutos", "description": "GG, No hay team – Edición 2026" },
-  "fixture": { "rounds": [] }
+  "prize": {
+    "title": "Campeones Absolutos",
+    "description": "GG, No hay team – Edición 2026"
+  },
+  "fixture": {
+    "rounds": [
+      {
+        "name": "Octavos",
+        "bestOf": 3,
+        "matches": [
+          {
+            "id": "oct_1",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "oct_2",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "oct_3",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "oct_4",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "oct_5",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "oct_6",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "oct_7",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "oct_8",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          }
+        ]
+      },
+      {
+        "name": "Cuartos",
+        "bestOf": 3,
+        "matches": [
+          {
+            "id": "cuart_1",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "cuart_2",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "cuart_3",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "cuart_4",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          }
+        ]
+      },
+      {
+        "name": "Semifinal",
+        "bestOf": 3,
+        "matches": [
+          {
+            "id": "sem_1",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
+          {
+            "id": "sem_2",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          }
+        ]
+      },
+      {
+        "name": "Final",
+        "bestOf": 5,
+        "matches": [
+          {
+            "id": "final",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          }
+        ]
+      }
+    ]
+  }
 };
 
 // ─── init ────────────────────────────────────────────────────────────────
@@ -454,9 +1466,12 @@ function readTeam(el, prefix) {
 function readGames(el) {
   const games = [];
   el.querySelectorAll('.game-item').forEach(gel => {
+    const civs1 = Array.from(gel.querySelectorAll('.g-civs-team1 .g-civ')).map(i => i.value);
+    const civs2 = Array.from(gel.querySelectorAll('.g-civs-team2 .g-civ')).map(i => i.value);
     games.push({
       map: gel.querySelector('.g-map').value,
-      winner: gel.querySelector('.g-winner').value || null
+      winner: gel.querySelector('.g-winner').value || null,
+      civs: { team1: civs1, team2: civs2 }
     });
   });
   return games;
@@ -658,6 +1673,8 @@ function renderPlayer(p, prefix, pi) {
 }
 
 function renderGameItem(g, gi) {
+  const civs1 = (g.civs && g.civs.team1) || ['', '', ''];
+  const civs2 = (g.civs && g.civs.team2) || ['', '', ''];
   return `
     <div class="array-item game-item" style="margin-top:6px;padding:10px;border-color:var(--border);">
       <button class="remove-btn" onclick="removeGame(this)">✕</button>
@@ -670,6 +1687,24 @@ function renderGameItem(g, gi) {
             <option value="team1" ${g.winner === 'team1' ? 'selected' : ''}>Team 1</option>
             <option value="team2" ${g.winner === 'team2' ? 'selected' : ''}>Team 2</option>
           </select>
+        </div>
+      </div>
+      <div class="field-row" style="margin-top:6px;">
+        <div class="field">
+          <label>Civs Team 1 (jugador 1 / 2 / 3)</label>
+          <div class="field-row-3 g-civs-team1">
+            <input class="g-civ" value="${esc(civs1[0] || '')}" placeholder="Jugador 1">
+            <input class="g-civ" value="${esc(civs1[1] || '')}" placeholder="Jugador 2">
+            <input class="g-civ" value="${esc(civs1[2] || '')}" placeholder="Jugador 3">
+          </div>
+        </div>
+        <div class="field">
+          <label>Civs Team 2 (jugador 1 / 2 / 3)</label>
+          <div class="field-row-3 g-civs-team2">
+            <input class="g-civ" value="${esc(civs2[0] || '')}" placeholder="Jugador 1">
+            <input class="g-civ" value="${esc(civs2[1] || '')}" placeholder="Jugador 2">
+            <input class="g-civ" value="${esc(civs2[2] || '')}" placeholder="Jugador 3">
+          </div>
         </div>
       </div>
     </div>
@@ -748,7 +1783,7 @@ function addGame(btn) {
   const matchIdx = Array.from(roundItem.querySelectorAll('.match-item')).indexOf(matchItem);
   const match = round.matches[matchIdx];
   match.games = match.games || [];
-  match.games.push({ map: '', winner: null });
+  match.games.push({ map: '', winner: null, civs: { team1: ['', '', ''], team2: ['', '', ''] } });
   renderFixture();
 }
 
