@@ -68,11 +68,15 @@
     },
     {
       "title": "Horarios",
-      "text": "Tolerancia de 15 min desde la hora pactada; sin los 3 jugadores conectados se pierde por escritorio. Máximo 1 reprogramación por serie."
+      "text": "Tolerancia de 15 min desde la hora pactada; sin los 3 jugadores conectados se pierde por escritorio. Máximo 1 reprogramación por serie. En octavos y cuartos, los equipos pueden adelantar sus partidas durante la semana si ambos están de acuerdo."
     },
     {
       "title": "Premios",
       "text": "El equipo campeón se corona como 'Campeones Absolutos de GG, No hay team – Edición 2026'."
+    },
+    {
+      "title": "Premios",
+      "text": "El equipo que resulte ganador recibirá el título oficial de 'Campeones Absolutos de GG, No hay team – Edición 2026'."
     }
   ],
   "schedule": [
