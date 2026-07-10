@@ -6,8 +6,8 @@
     "dates": "15 – 30 de Agosto · Sábados y Domingos",
     "organizer": "Valencho",
     "discord": "Canal oficial de Discord de Nacho AoE",
-    "logo": "logo.png",
-    "backgroundHeader": "background.jpeg",
+    "logo": "background.jpeg",
+    "backgroundHeader": "logo.png",
     "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=sharing&ouid=117786843446152372164",
     "started": false
   },
@@ -30,7 +30,7 @@
     },
     {
       "label": "Inscripción",
-      "value": "7 Jul – 8 Ago"
+      "value": "10 Jul – 10 Ago"
     },
     {
       "label": "Partidas mín.",
@@ -79,7 +79,7 @@
   "schedule": [
     {
       "phase": "Inscripción",
-      "dates": "7 de julio – 8 de agosto"
+      "dates": "10 de julio – 10 de agosto"
     },
     {
       "phase": "Octavos",
@@ -140,50 +140,12 @@
         "matches": [
           {
             "id": "oct_1",
-            "team1": {
-              "name": "Los Vikingos",
-              "players": [
-                {
-                  "name": "Valencho",
-                  "elo": 1050,
-                  "nationality": "🇦🇷"
-                },
-                {
-                  "name": "NachoAoE",
-                  "elo": 1020,
-                  "nationality": "🇦🇷"
-                },
-                {
-                  "name": "Maty",
-                  "elo": 980,
-                  "nationality": "🇨🇱"
-                }
-              ]
-            },
-            "team2": {
-              "name": "Team Azteca",
-              "players": [
-                {
-                  "name": "Cuauhtli",
-                  "elo": 1010,
-                  "nationality": "🇲🇽"
-                },
-                {
-                  "name": "Jaguar",
-                  "elo": 990,
-                  "nationality": "🇲🇽"
-                },
-                {
-                  "name": "Tlatoani",
-                  "elo": 970,
-                  "nationality": "🇲🇽"
-                }
-              ]
-            },
+            "team1": null,
+            "team2": null,
             "games": [
               {
-                "map": "Arabia",
-                "winner": "team1",
+                "map": "",
+                "winner": null,
                 "civs": {
                   "team1": [
                     "",
@@ -198,8 +160,8 @@
                 }
               },
               {
-                "map": "Arena",
-                "winner": "team2",
+                "map": "",
+                "winner": null,
                 "civs": {
                   "team1": [
                     "",
@@ -214,8 +176,8 @@
                 }
               },
               {
-                "map": "Socotra",
-                "winner": "team1",
+                "map": "",
+                "winner": null,
                 "civs": {
                   "team1": [
                     "",
@@ -230,7 +192,7 @@
                 }
               }
             ],
-            "winner": "team1"
+            "winner": null
           },
           {
             "id": "oct_2",
