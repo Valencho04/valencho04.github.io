@@ -1,808 +1,98 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" translate="no">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GG, No hay team - Torneo 3v3 AoE II</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Inter:wght@400;600;700;800&display=swap');
-
-    :root {
-      --bg: #0a0a0f;
-      --surface: #13131a;
-      --border: #2a2a3a;
-      --gold: #c9a84c;
-      --gold-dim: #8a7230;
-      --green: #3aa86b;
-      --red: #a83a3a;
-      --text: #e8e0d0;
-      --text-muted: #8a8678;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    .bg-texture {
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(ellipse at 20% 50%, rgba(107, 63, 160, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 50%, rgba(201, 168, 76, 0.06) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 60px 0 40px;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      border-radius: 0 0 12px 12px;
-      transition: padding 0.3s;
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background: center / cover no-repeat;
-      opacity: 0.12;
-      z-index: -1;
-    }
-
-    .hero-logo {
-      width: 160px;
-      height: 160px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin-bottom: 20px;
-      border: 3px solid var(--gold);
-      box-shadow: 0 0 40px rgba(201, 168, 76, 0.2);
-      transition: all 0.3s;
-    }
-
-    .hero h1 {
-      font-family: 'MedievalSharp', cursive;
-      font-size: 2.8rem;
-      color: var(--gold);
-      letter-spacing: 2px;
-      text-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
-      transition: font-size 0.3s;
-    }
-
-    .hero .subtitle {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      margin-top: 8px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
-
-    .hero .tagline {
-      margin-top: 12px;
-      font-size: 1rem;
-      color: var(--text-muted);
-    }
-
-    .started .hero {
-      padding: 28px 0 20px;
-      border-bottom-width: 0;
-    }
-
-    .started .hero-bg {
-      opacity: 0.06;
-    }
-
-    .started .hero-logo {
-      width: 72px;
-      height: 72px;
-      margin-bottom: 10px;
-      border-width: 2px;
-    }
-
-    .started .hero h1 {
-      font-size: 1.6rem;
-    }
-
-    .started .hero .subtitle,
-    .started .hero .tagline,
-    .started .hero .btn-primary {
-      display: none;
-    }
-
-    .started .hero .hero-status {
-      display: block;
-      font-size: 0.8rem;
-      color: var(--gold);
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      margin-top: 4px;
-      font-weight: 600;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 16px 48px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--gold), var(--gold-dim));
-      color: #0a0a0f;
-      margin-top: 24px;
-      box-shadow: 0 4px 24px rgba(201, 168, 76, 0.25);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 32px rgba(201, 168, 76, 0.35);
-    }
-
-    section {
-      padding: 48px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    section:last-of-type {
-      border-bottom: none;
-    }
-
-    .section-title {
-      font-family: 'MedievalSharp', cursive;
-      font-size: 1.8rem;
-      color: var(--gold);
-      margin-bottom: 24px;
-      text-align: center;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .info-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 12px;
-      text-align: center;
-    }
-
-    .info-card .label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
-    }
-
-    .info-card .value {
-      font-size: 1rem;
-      font-weight: 700;
-    }
-
-    .rules-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .rules-list li {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px 18px;
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 0.95rem;
-    }
-
-    .rules-list li::before {
-      content: "⚔";
-      flex-shrink: 0;
-      font-size: 1rem;
-      margin-top: 2px;
-    }
-
-    .rules-list li strong {
-      color: var(--gold);
-    }
-
-    .rules-link {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .rules-link a {
-      color: var(--gold);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--gold-dim);
-      font-weight: 600;
-    }
-
-    .rules-link a:hover { color: #dbb85c; }
-
-    .schedule-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .schedule-table th,
-    .schedule-table td {
-      padding: 12px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .schedule-table th {
-      color: var(--gold);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-size: 0.85rem;
-    }
-
-    .schedule-table td { color: var(--text-muted); }
-    .schedule-table tr:hover td { color: var(--text); }
-
-    .maps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 16px;
-    }
-
-    .map-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-
-    .map-card:hover { transform: translateY(-4px); }
-
-    .map-card img {
-      width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      display: block;
-    }
-
-    .map-card .map-name {
-      padding: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .prize-box {
-      background: var(--surface);
-      border: 2px solid var(--gold);
-      border-radius: 12px;
-      padding: 32px;
-      text-align: center;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .prize-box h3 {
-      font-family: 'MedievalSharp', cursive;
-      font-size: 1.6rem;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-
-    .prize-box p { color: var(--text-muted); }
-
-    footer {
-      text-align: center;
-      padding: 32px 0;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-    }
-
-    footer a {
-      color: var(--gold);
-      text-decoration: none;
-    }
-
-    /* ===== FIXTURE ===== */
-    .fixture-nav {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-
-    .fixture-nav button {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      padding: 8px 18px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-    }
-
-    .fixture-nav button:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-
-    .fixture-nav button.active {
-      background: var(--gold);
-      color: #0a0a0f;
-      border-color: var(--gold);
-    }
-
-    .round-view {
-      display: none;
-    }
-
-    .round-view.active {
-      display: block;
-    }
-
-    .round-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .round-header h3 {
-      font-family: 'MedievalSharp', cursive;
-      font-size: 1.5rem;
-      color: var(--gold);
-    }
-
-    .round-format {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      background: var(--surface);
-      padding: 4px 12px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-    }
-
-    .matches-grid {
-      display: grid;
-      gap: 20px;
-    }
-
-    .match-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: border-color 0.2s;
-    }
-
-    .match-card.has-winner {
-      border-color: var(--gold);
-    }
-
-    .match-teams {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 12px;
-      padding: 16px;
-      align-items: center;
-    }
-
-    .team-slot {
-      padding: 12px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      transition: all 0.2s;
-      min-height: 100px;
-    }
-
-    .team-slot.winner {
-      border-color: var(--gold);
-      background: rgba(201, 168, 76, 0.06);
-    }
-
-    .team-slot.loser {
-      opacity: 0.55;
-    }
-
-    .team-slot.tbd {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-muted);
-      font-style: italic;
-      font-size: 0.9rem;
-      border-style: dashed;
-    }
-
-    .team-name {
-      font-weight: 700;
-      font-size: 1.05rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .team-name .win-badge {
-      background: var(--gold);
-      color: #0a0a0f;
-      font-size: 0.6rem;
-      padding: 2px 7px;
-      border-radius: 4px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .team-players {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .player-row {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .player-elo {
-      color: var(--gold-dim);
-      font-weight: 600;
-      font-size: 0.75rem;
-    }
-
-    .player-flag {
-      font-size: 0.9rem;
-      line-height: 1;
-    }
-
-    .vs-divider {
-      font-weight: 800;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      text-align: center;
-    }
-
-    .score-display {
-      text-align: center;
-      font-size: 1.6rem;
-      font-weight: 800;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .score-display .score {
-      line-height: 1;
-    }
-
-    .score-display .score.score-winner {
-      color: var(--gold);
-    }
-
-    .score-display .score.score-loser {
-      color: var(--text-muted);
-      opacity: 0.5;
-    }
-
-    .score-display .score-dash {
-      color: var(--border);
-      font-size: 1.2rem;
-    }
-
-    .match-maps {
-      padding: 0 16px 16px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .match-maps-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-right: 4px;
-    }
-
-    .map-result {
-      font-size: 0.78rem;
-      padding: 3px 10px;
-      border-radius: 5px;
-      border: 1px solid var(--border);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .map-result.team1-wins {
-      border-color: var(--green);
-      color: var(--green);
-    }
-
-    .map-result.team2-wins {
-      border-color: var(--red);
-      color: var(--red);
-    }
-
-    .map-result .map-win-icon {
-      font-size: 0.65rem;
-    }
-
-    .empty-fixture {
-      text-align: center;
-      padding: 40px 20px;
-      color: var(--text-muted);
-      border: 1px dashed var(--border);
-      border-radius: 12px;
-    }
-
-    .empty-fixture p {
-      margin-top: 8px;
-      font-size: 0.9rem;
-    }
-
-    @media (max-width: 700px) {
-      .match-teams {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-      .vs-divider {
-        display: none;
-      }
-      .score-display {
-        flex-direction: row;
-        justify-content: center;
-        gap: 12px;
-        padding: 4px 0;
-      }
-      .score-display .score-dash {
-        display: none;
-      }
-      .team-slot {
-        min-height: auto;
-        padding: 10px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
-      .hero-logo { width: 120px; height: 120px; }
-      .started .hero { padding: 20px 0 16px; }
-      .started .hero-logo { width: 56px; height: 56px; }
-      .started .hero h1 { font-size: 1.3rem; }
-      .section-title { font-size: 1.4rem; }
-      .info-grid { grid-template-columns: 1fr 1fr; }
-      .maps-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-      .map-card .map-name { font-size: 0.75rem; padding: 6px; }
-      section { padding: 32px 0; }
-      .container { padding: 0 16px; }
-      .matches-grid { gap: 14px; }
-    }
-
-    @media (max-width: 400px) {
-      .info-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .maps-grid { grid-template-columns: repeat(2, 1fr); }
-      .btn { padding: 14px 32px; font-size: 1rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneo 3v3 - GG, No hay equipo</title>
+    <style>
+        :root { --bg: #121212; --card: #1e1e1e; --accent: #ff9800; --text: #fff; }
+        body { font-family: sans-serif; background-color: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 1000px; margin: auto; }
+        
+        /* Secciones */
+        .section { margin-bottom: 40px; padding: 20px; background: var(--card); border-radius: 8px; }
+        h2 { border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        
+        /* Tarjetas Informativas */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .card { background: #333; padding: 15px; border-radius: 5px; text-align: center; }
+        
+        /* Bracket simple */
+        .match { border: 1px solid #444; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .team-name { font-weight: bold; color: var(--accent); }
+        
+        /* Mapas */
+        .map-grid { display: flex; flex-wrap: wrap; gap: 15px; }
+        .map-card { width: 120px; text-align: center; font-size: 12px; }
+        .map-card img { width: 100%; border-radius: 4px; }
+    </style>
 </head>
 <body>
 
-<div class="bg-texture"></div>
+    <div class="container">
+        <header id="header">Cargando cabecera...</header>
+        
+        <section class="section">
+            <h2>Información General</h2>
+            <div id="info-cards" class="info-grid"></div>
+        </section>
 
-<div class="container" id="app">
-  <div style="text-align:center; padding:60px 0; color:var(--text-muted);">Cargando...</div>
-</div>
+        <section class="section">
+            <h2>Bracket del Torneo</h2>
+            <div id="bracket"></div>
+        </section>
 
-<script>
-fetch('data.json')
-  .then(r => r.json())
-  .then(d => render(d))
-  .catch(() => {
-    document.getElementById('app').innerHTML =
-      `<div style="text-align:center;padding:60px 0;color:var(--text-muted);">Error al cargar los datos.</div>`;
-  });
-
-function render(d) {
-  const t = d.tournament;
-  const started = t.started;
-  const app = document.getElementById('app');
-
-  if (started) {
-    document.body.classList.add('started');
-  }
-
-  const heroStatusHtml = started ? '<p class="hero-status">Torneo en curso</p>' : '';
-
-  const heroHtml = `
-    <header class="hero">
-      <div class="hero-bg" style="background-image:url('${t.backgroundHeader}')"></div>
-      <img src="${t.logo}" alt="${t.name}" class="hero-logo">
-      <h1>${t.name}</h1>
-      ${heroStatusHtml}
-      <p class="subtitle">${t.subtitle}</p>
-      <p class="tagline">${t.dates}</p>
-      <a href="${t.registrationUrl}" class="btn btn-primary" target="_blank" rel="noopener">Inscribite acá</a>
-    </header>`;
-
-  const infoHtml = `<section><h2 class="section-title">Información General</h2><div class="info-grid" id="infoGrid"></div></section>`;
-  const regHtml = `<section style="text-align:center;"><h2 class="section-title">Formulario de Inscripción</h2><p style="color:var(--text-muted);margin-bottom:8px;">Completá el formulario con los datos de tu equipo para participar.</p><a href="${t.registrationUrl}" class="btn btn-primary" target="_blank" rel="noopener">Ir al formulario</a></section>`;
-  const rulesHtml = `<section><h2 class="section-title">Reglas Destacadas</h2><ul class="rules-list" id="rulesList"></ul><div class="rules-link"><a href="${d.rulesFile}" target="_blank">Leer reglamento completo →</a></div></section>`;
-  const schedHtml = `<section><h2 class="section-title">Cronograma</h2><table class="schedule-table"><thead><tr><th>Fase</th><th>Fechas</th></tr></thead><tbody id="scheduleBody"></tbody></table></section>`;
-  const mapsHtml = `<section><h2 class="section-title">Mapas</h2><p style="text-align:center;color:var(--text-muted);margin-bottom:16px;">Todos los mapas disponibles en la ruleta:</p><div class="maps-grid" id="mapsGrid"></div></section>`;
-  const fixtureHtml = `<section id="fixtureSection"><h2 class="section-title">Fixture</h2><div id="fixtureContent"></div></section>`;
-  const prizeHtml = `<section><h2 class="section-title">Premios</h2><div class="prize-box"><h3>${d.prize.title}</h3><p>${d.prize.description}</p></div></section>`;
-  const footerHtml = `<footer><p>Organizado por <strong>${t.organizer}</strong> · Comunicación oficial por ${t.discord}</p><p style="margin-top:6px;"><a href="${t.registrationUrl}" target="_blank">Inscribite acá</a></p></footer>`;
-
-  let sections;
-  if (started) {
-    sections = [heroHtml, fixtureHtml, infoHtml, regHtml, rulesHtml, schedHtml, mapsHtml, prizeHtml, footerHtml];
-  } else {
-    sections = [heroHtml, infoHtml, regHtml, rulesHtml, schedHtml, mapsHtml, fixtureHtml, prizeHtml, footerHtml];
-  }
-
-  app.innerHTML = sections.join('');
-
-  d.infoCards.forEach(c => {
-    document.getElementById('infoGrid').innerHTML +=
-      `<div class="info-card"><div class="label">${c.label}</div><div class="value">${c.value}</div></div>`;
-  });
-
-  d.rules.forEach(r => {
-    document.getElementById('rulesList').innerHTML +=
-      `<li><strong>${r.title}:</strong> ${r.text}</li>`;
-  });
-
-  d.schedule.forEach(s => {
-    document.getElementById('scheduleBody').innerHTML +=
-      `<tr><td>${s.phase}</td><td>${s.dates}</td></tr>`;
-  });
-
-  d.maps.forEach(m => {
-    document.getElementById('mapsGrid').innerHTML +=
-      `<div class="map-card"><img src="${m.image}" alt="${m.name}" loading="lazy"><div class="map-name">${m.name}</div></div>`;
-  });
-
-  renderFixture(d);
-}
-
-function renderFixture(d) {
-  const fixture = d.fixture;
-  if (!fixture || !fixture.rounds || fixture.rounds.length === 0) return;
-
-  const container = document.getElementById('fixtureContent');
-  let navHtml = '<div class="fixture-nav">';
-  let roundsHtml = '';
-
-  fixture.rounds.forEach((round, ri) => {
-    const isFirst = ri === 0;
-    navHtml += `<button class="${isFirst ? 'active' : ''}" data-round="${ri}">${round.name}</button>`;
-
-    roundsHtml += `<div class="round-view ${isFirst ? 'active' : ''}" data-round="${ri}">
-      <div class="round-header">
-        <h3>${round.name}</h3>
-        <span class="round-format">Bo${round.bestOf}</span>
-      </div>
-      <div class="matches-grid">`;
-
-    if (!round.matches || round.matches.length === 0) {
-      roundsHtml += `<div class="empty-fixture"><p>Sin partidos aún</p></div>`;
-    } else {
-      round.matches.forEach(m => {
-        roundsHtml += renderMatch(m, round.bestOf);
-      });
-    }
-
-    roundsHtml += `</div></div>`;
-  });
-
-  navHtml += '</div>';
-  container.innerHTML = navHtml + roundsHtml;
-
-  document.querySelectorAll('.fixture-nav button').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.fixture-nav button').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.round-view').forEach(v => v.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelector(`.round-view[data-round="${btn.dataset.round}"]`).classList.add('active');
-    });
-  });
-}
-
-function renderMatch(m, bestOf) {
-  const t1 = m.team1;
-  const t2 = m.team2;
-  const hasWinner = m.winner !== null;
-  const t1Wins = m.games ? m.games.filter(g => g.winner === 'team1').length : 0;
-  const t2Wins = m.games ? m.games.filter(g => g.winner === 'team2').length : 0;
-
-  const t1Html = t1 ? renderTeam(t1, hasWinner && m.winner === 'team1', m.winner !== null && m.winner !== 'team1') : renderTbd();
-  const t2Html = t2 ? renderTeam(t2, hasWinner && m.winner === 'team2', m.winner !== null && m.winner !== 'team2') : renderTbd();
-
-  const hasGames = m.games && m.games.length > 0;
-  const mapsHtml = hasGames ? renderGames(m.games) : '';
-
-  return `<div class="match-card ${hasWinner ? 'has-winner' : ''}">
-    <div class="match-teams">
-      ${t1Html}
-      <div class="vs-divider">VS</div>
-      <div class="score-display">
-        <span class="score ${hasWinner && m.winner === 'team1' ? 'score-winner' : 'score-loser'}">${t1Wins}</span>
-        <span class="score-dash">—</span>
-        <span class="score ${hasWinner && m.winner === 'team2' ? 'score-winner' : 'score-loser'}">${t2Wins}</span>
-      </div>
-      ${t2Html}
+        <section class="section">
+            <h2>Mapas Disponibles</h2>
+            <div id="mapas-container" class="map-grid"></div>
+        </section>
     </div>
-    ${mapsHtml}
-  </div>`;
-}
 
-function renderTeam(team, isWinner, isLoser) {
-  const winBadge = isWinner ? '<span class="win-badge">Ganó</span>' : '';
-  const playersHtml = team.players.map(p => {
-    const flag = p.nationality || '';
-    const elo = p.elo ? `<span class="player-elo">${p.elo}elo</span>` : '';
-    return `<div class="player-row">${flag ? `<span class="player-flag">${flag}</span>` : ''}${p.name} ${elo}</div>`;
-  }).join('');
+    <script>
+        async function init() {
+            try {
+                const response = await fetch('data.json');
+                const data = await response.json();
 
-  return `<div class="team-slot ${isWinner ? 'winner' : ''} ${isLoser ? 'loser' : ''}">
-    <div class="team-name">${team.name} ${winBadge}</div>
-    <div class="team-players">${playersHtml}</div>
-  </div>`;
-}
+                // 1. Render Cabecera
+                document.getElementById('header').innerHTML = `<h1>${data.torneo.nombre}</h1><p>${data.torneo.subtítulo}</p>`;
 
-function renderTbd() {
-  return `<div class="team-slot tbd">Por definir</div>`;
-}
+                // 2. Render Info Cards
+                const cardsContainer = document.getElementById('info-cards');
+                data["tarjetas informativas"].forEach(item => {
+                    const label = item.label || item.etiqueta;
+                    const value = item.value || item.valor;
+                    cardsContainer.innerHTML += `<div class="card"><strong>${label}</strong><br>${value}</div>`;
+                });
 
-function renderGames(games) {
-  let html = '<div class="match-maps"><span class="match-maps-label">Mapas:</span>';
-  games.forEach((g, i) => {
-    const cls = g.winner === 'team1' ? 'team1-wins' : g.winner === 'team2' ? 'team2-wins' : '';
-    const icon = g.winner === 'team1' ? '▲' : g.winner === 'team2' ? '▼' : '';
-    html += `<span class="map-result ${cls}">${icon} ${g.map}</span>`;
-  });
-  html += '</div>';
-  return html;
-}
-</script>
+                // 3. Render Bracket (Accesorio)
+                const bracket = document.getElementById('bracket');
+                data.accesorio.rondas.forEach(ronda => {
+                    bracket.innerHTML += `<h3>${ronda.nombre}</h3>`;
+                    ronda.partidos.forEach(p => {
+                        const t1 = p.team1 ? p.team1.name : "Por definir";
+                        const t2 = p.team2 ? p.team2.name : "Por definir";
+                        bracket.innerHTML += `<div class="match">
+                            <span class="team-name">${t1}</span> vs <span class="team-name">${t2}</span>
+                        </div>`;
+                    });
+                });
+
+                // 4. Render Mapas
+                const mapas = document.getElementById('mapas-container');
+                data.mapas.forEach(m => {
+                    const nombre = m.nombre || m.name;
+                    const imagen = m.imagen || m.image;
+                    mapas.innerHTML += `<div class="map-card"><img src="${imagen}" alt="${nombre}"><br>${nombre}</div>`;
+                });
+
+            } catch (err) {
+                console.error("Error al renderizar:", err);
+                document.body.innerHTML = "<h1>Error al cargar el torneo</h1><p>Revisa la consola (F12) o asegúrate que el archivo data.json esté subido.</p>";
+            }
+        }
+
+        init();
+    </script>
 </body>
 </html>
