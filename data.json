@@ -7,8 +7,8 @@
     "organizer": "Valencho",
     "discord": "Canal oficial de Discord de Nacho AoE",
     "logo": "logo.png",
-    "backgroundHeader": "background.png",
-    "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=header",
+    "backgroundHeader": "background.jpeg",
+    "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=sharing&ouid=117786843446152372164",
     "started": false
   },
   "infoCards": [
@@ -30,7 +30,7 @@
     },
     {
       "label": "Inscripción",
-      "value": "10 Jul – 10 Ago"
+      "value": "7 Jul – 8 Ago"
     },
     {
       "label": "Partidas mín.",
@@ -39,35 +39,43 @@
   ],
   "rules": [
     {
+      "title": "Admisión y ELO",
+      "text": "Todos los integrantes deben tener ELO histórico y actual entre 800 y 1100 en Ranked 1v1, con mínimo 40 partidas jugadas en ranked y perfil verificado contra smurfs."
+    },
+    {
       "title": "Draft",
-      "text": "Civilizaciones libres ocultas sin repetir cada jugador. Se juegan 3 partidas por serie (Bo5 la final)."
+      "text": "Civilizaciones libres ocultas sin repetir: cada jugador elige en secreto y no puede repetir civ en la serie. Se juegan 3 partidas por serie (Bo5 en la final)."
     },
     {
       "title": "Mapas",
-      "text": "Se gira una ruleta con 7 mapas para definir el orden de la serie. El mapa seleccionado se juega y se elimina de la lista. Aclaracion: todo esto sera grabado o transmitido el sorteo."
+      "text": "Se gira una ruleta con los mapas disponibles, sin repetición, para definir el orden de la serie. Cada mapa jugado se elimina de la lista."
     },
     {
       "title": "Sala",
-      "text": "La crea el equipo con mayor ELO acumulado. Obligatorio: ocultar civs, espectadores con 2 min de delay, servidor acordado."
+      "text": "La arma el equipo con mayor ELO acumulado. Obligatorio: civs ocultas, espectadores con 2 min de delay, grabación activada y servidor acordado entre capitanes."
     },
     {
       "title": "Conducta",
-      "text": "Nada de ofensas, burlas o spam. Infracción = derrota automática."
-    },
-    {
-      "title": "Drops",
-      "text": "Se pausa y se intenta restaurar. Si no se puede, se considerará ventaja irreversible si el equipo afectado ha perdido gran parte de su recursos o cuenta con una desventaja militar superior significativa diferencia con respecto al rival. "
-    },
-    {
-      "title": "Tolerancia",
-      "text": "15 min de espera desde la hora pactada. Si no están los 3, pierden por escritorio."
+      "text": "El chat se limita a saludo, pausas justificadas y GG/WP. Ofensas, burlas o spam provocativo son derrota automática para el equipo infractor."
     },
     {
       "title": "Discord",
-      "text": "Cada equipo en su sala de voz separada. Prohibido compartir pantalla en público."
+      "text": "Cada equipo debe permanecer en su sala de voz asignada, separado del rival. Prohibido compartir pantalla en canales públicos."
+    },
+    {
+      "title": "Drops",
+      "text": "Se pausa y se intenta restaurar la partida. Si no es posible y hay una desventaja irremontable, el organizador define reinicio o victoria directa."
+    },
+    {
+      "title": "Horarios",
+      "text": "Tolerancia de 15 min desde la hora pactada; sin los 3 jugadores conectados se pierde por escritorio. Máximo 1 reprogramación por serie."
+    },
+    {
+      "title": "Premios",
+      "text": "El equipo campeón se corona como 'Campeones Absolutos de GG, No hay team – Edición 2026'."
     }
   ],
-  "rulesFile": "Reglas- Torneo 3v3 _GG, No hay team_.txt",
+  "rulesFile": "Reglas-_Torneo_3v3__GG__No_hay_team_.docx",
   "schedule": [
     {
       "phase": "Inscripción",
@@ -101,7 +109,7 @@
     },
     {
       "name": "Túnel Amazónico",
-      "image": "https://static.wikia.nocookie.net/ageofempires/images/0/00/Rm_amazon_tunnels.png/revision/latest/scale-to-width-down/268?cb=20250409050121"
+      "image": "https://static.wikia.nocookie.net/ageofempires/images/b/b0/Amazon_Tunnel_minimap_aoe2DE.PNG/revision/latest?cb=20221023011817"
     },
     {
       "name": "Isla del Paraíso",
@@ -130,6 +138,156 @@
         "name": "Octavos",
         "bestOf": 3,
         "matches": [
+          {
+            "id": "oct_1",
+            "team1": {
+              "name": "Los Vikingos",
+              "players": [
+                {
+                  "name": "Valencho",
+                  "elo": 1050,
+                  "nationality": "🇦🇷"
+                },
+                {
+                  "name": "NachoAoE",
+                  "elo": 1020,
+                  "nationality": "🇦🇷"
+                },
+                {
+                  "name": "Maty",
+                  "elo": 980,
+                  "nationality": "🇨🇱"
+                }
+              ]
+            },
+            "team2": {
+              "name": "Team Azteca",
+              "players": [
+                {
+                  "name": "Cuauhtli",
+                  "elo": 1010,
+                  "nationality": "🇲🇽"
+                },
+                {
+                  "name": "Jaguar",
+                  "elo": 990,
+                  "nationality": "🇲🇽"
+                },
+                {
+                  "name": "Tlatoani",
+                  "elo": 970,
+                  "nationality": "🇲🇽"
+                }
+              ]
+            },
+            "games": [
+              {
+                "map": "Arabia",
+                "winner": "team1",
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "Arena",
+                "winner": "team2",
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "Socotra",
+                "winner": "team1",
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": "team1"
+          },
+          {
+            "id": "oct_2",
+            "team1": null,
+            "team2": null,
+            "games": [
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              },
+              {
+                "map": "",
+                "winner": null,
+                "civs": {
+                  "team1": [
+                    "",
+                    "",
+                    ""
+                  ],
+                  "team2": [
+                    "",
+                    "",
+                    ""
+                  ]
+                }
+              }
+            ],
+            "winner": null
+          },
           {
             "id": "oct_3",
             "team1": null,
