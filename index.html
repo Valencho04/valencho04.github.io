@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GG, No hay team - Torneo 3v3 AoE II</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* ... (Mantén tu CSS original y añade esto al final) ... */
+    section:has(#infoGrid) {
+      padding: 80px 0;
+    }
+    .info-card .value {
+      max-width: 150px;
+      margin: 0 auto;
+      word-wrap: break-word;
+      line-height: 1.2;
+    }
 
     @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Inter:wght@400;600;700;800&display=swap');
 
@@ -203,6 +212,10 @@
     .info-card .value {
       font-size: 1rem;
       font-weight: 700;
+      max-width: 150px; /* Ajusta este valor según cuánto quieras restringir antes del salto */
+      margin: 0 auto;
+      word-wrap: break-word; /* Fuerza el salto de línea */
+      line-height: 1.2;
     }
 
     .rules-list {
@@ -794,11 +807,16 @@ function renderTbd() {
 }
 
 function renderGames(games) {
-  let html = '<div class="match-maps"><span class="match-maps-label">Mapas:</span>';
-  games.forEach((g, i) => {
-    const cls = g.winner === 'team1' ? 'team1-wins' : g.winner === 'team2' ? 'team2-wins' : '';
-    const icon = g.winner === 'team1' ? '▲' : g.winner === 'team2' ? '▼' : '';
-    html += `<span class="map-result ${cls}">${icon} ${g.map}</span>`;
+  let html = '<div class="match-maps"><span class="match-maps-label">Mapas y Civs:</span>';
+  games.forEach((g) => {
+    // Verifica si existen civilizaciones para mostrar, sino muestra solo el mapa
+    const civs1 = g.civs ? `<br><small>T1: ${g.civs.team1.join(', ')}</small>` : '';
+    const civs2 = g.civs ? `<br><small>T2: ${g.civs.team2.join(', ')}</small>` : '';
+    
+    html += `
+      <span class="map-result">
+        ${g.map} ${civs1} ${civs2}
+      </span>`;
   });
   html += '</div>';
   return html;
