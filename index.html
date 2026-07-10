@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GG, No hay team - Torneo 3v3 AoE II</title>
   <style>
-    /* ... (Mantén tu CSS original y añade esto al final) ... */
     section:has(#infoGrid) {
       padding: 80px 0;
     }
@@ -36,6 +35,7 @@
       color: var(--text);
       line-height: 1.6;
       min-height: 100vh;
+      margin: 0;
     }
 
     .bg-texture {
@@ -93,6 +93,7 @@
       letter-spacing: 2px;
       text-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
       transition: font-size 0.3s;
+      margin: 0;
     }
 
     .hero .subtitle {
@@ -185,6 +186,7 @@
       color: var(--gold);
       margin-bottom: 24px;
       text-align: center;
+      margin-top: 0;
     }
 
     .info-grid {
@@ -209,20 +211,13 @@
       margin-bottom: 4px;
     }
 
-    .info-card .value {
-      font-size: 1rem;
-      font-weight: 700;
-      max-width: 150px; /* Ajusta este valor según cuánto quieras restringir antes del salto */
-      margin: 0 auto;
-      word-wrap: break-word; /* Fuerza el salto de línea */
-      line-height: 1.2;
-    }
-
     .rules-list {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 10px;
+      padding: 0;
+      margin: 0;
     }
 
     .rules-list li {
@@ -330,9 +325,10 @@
       font-size: 1.6rem;
       color: var(--gold);
       margin-bottom: 8px;
+      margin-top: 0;
     }
 
-    .prize-box p { color: var(--text-muted); }
+    .prize-box p { color: var(--text-muted); margin: 0; }
 
     footer {
       text-align: center;
@@ -399,6 +395,7 @@
       font-family: 'MedievalSharp', cursive;
       font-size: 1.5rem;
       color: var(--gold);
+      margin: 0;
     }
 
     .round-format {
@@ -555,14 +552,24 @@
       margin-right: 4px;
     }
 
+    /* ESTILOS NUEVOS PARA CIVILIZACIONES Y MAPAS APILADOS */
     .map-result {
-      font-size: 0.78rem;
-      padding: 3px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 10px;
       border-radius: 5px;
       border: 1px solid var(--border);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+      font-size: 0.78rem;
+      gap: 2px;
+    }
+    .map-result strong {
+      color: var(--text);
+    }
+    .map-result small {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      line-height: 1.1;
     }
 
     .map-result.team1-wins {
@@ -573,10 +580,6 @@
     .map-result.team2-wins {
       border-color: var(--red);
       color: var(--red);
-    }
-
-    .map-result .map-win-icon {
-      font-size: 0.65rem;
     }
 
     .empty-fixture {
@@ -809,13 +812,15 @@ function renderTbd() {
 function renderGames(games) {
   let html = '<div class="match-maps"><span class="match-maps-label">Mapas y Civs:</span>';
   games.forEach((g) => {
-    // Verifica si existen civilizaciones para mostrar, sino muestra solo el mapa
-    const civs1 = g.civs ? `<br><small>T1: ${g.civs.team1.join(', ')}</small>` : '';
-    const civs2 = g.civs ? `<br><small>T2: ${g.civs.team2.join(', ')}</small>` : '';
+    // Si hay civilizaciones, generamos las etiquetas <small> para T1 y T2
+    const civs1 = g.civs && g.civs.team1 ? `<small>T1: ${g.civs.team1.join(', ')}</small>` : '';
+    const civs2 = g.civs && g.civs.team2 ? `<small>T2: ${g.civs.team2.join(', ')}</small>` : '';
     
     html += `
       <span class="map-result">
-        ${g.map} ${civs1} ${civs2}
+        <strong>${g.map}</strong>
+        ${civs1}
+        ${civs2}
       </span>`;
   });
   html += '</div>';
