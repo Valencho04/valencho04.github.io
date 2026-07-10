@@ -6,8 +6,8 @@
     "dates": "15 – 30 de Agosto · Sábados y Domingos",
     "organizer": "Valencho",
     "discord": "Canal oficial de Discord de Nacho AoE",
-    "logo": "background.png",
-    "backgroundHeader": "logo.png",
+    "logo": "logo.png",
+    "backgroundHeader": "background.png",
     "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=header",
     "started": false
   },
@@ -71,7 +71,7 @@
   "schedule": [
     {
       "phase": "Inscripción",
-      "dates": "10 de julio – 10 de agosto"
+      "dates": "7 de julio – 8 de agosto"
     },
     {
       "phase": "Octavos",
@@ -124,46 +124,122 @@
     "title": "Campeones Absolutos",
     "description": "GG, No hay team – Edición 2026"
   },
-  {
   "fixture": {
     "rounds": [
       {
         "name": "Octavos",
         "bestOf": 3,
         "matches": [
-          {"id": "oct_3", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "oct_4", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "oct_5", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "oct_6", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "oct_7", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "oct_8", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]}
+          {
+            "id": "oct_3",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "oct_4",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "oct_5",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "oct_6",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "oct_7",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "oct_8",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          }
         ]
       },
       {
         "name": "Cuartos",
         "bestOf": 3,
         "matches": [
-          {"id": "cuart_1", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "cuart_2", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "cuart_3", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "cuart_4", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]}
+          {
+            "id": "cuart_1",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "cuart_2",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "cuart_3",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "cuart_4",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          }
         ]
       },
       {
         "name": "Semifinal",
         "bestOf": 3,
         "matches": [
-          {"id": "sem_1", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]},
-          {"id": "sem_2", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]}
+          {
+            "id": "sem_1",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          },
+          {
+            "id": "sem_2",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          }
         ]
       },
       {
         "name": "Final",
         "bestOf": 5,
         "matches": [
-          {"id": "final", "team1": null, "team2": null, "winner": null, "games": [{"map": "", "winner": null, "civs": {"team1": [], "team2": []}}]}
+          {
+            "id": "final",
+            "team1": null,
+            "team2": null,
+            "games": [],
+            "winner": null
+          }
         ]
       }
     ]
   }
-}
