@@ -47,12 +47,12 @@
       "text": "Civilizaciones libres ocultas sin repetir: cada jugador elige en secreto y no puede repetir civ en la serie. Se juegan 3 partidas por serie (Bo5 en la final)."
     },
     {
-      "title": "Mapas",
-      "text": "Se gira una ruleta con los mapas disponibles, sin repetición, para definir el orden de la serie. Cada mapa jugado se elimina de la lista."
+      "title": "Map Pool",
+      "text": "Los mapas se jugarán estrictamente en el orden establecido."
     },
     {
       "title": "Sala",
-      "text": "La arma el equipo con mayor ELO acumulado. Obligatorio: civs ocultas, espectadores con 2 min de delay, grabación activada y servidor acordado entre capitanes."
+      "text": "La arma el equipo con mayor ELO acumulado. En caso de empate en el ELO acumulado, cualquier equipo puede crear la sala. Obligatorio: civs ocultas, espectadores con 2 min de delay, grabación activada y servidor acordado entre capitanes."
     },
     {
       "title": "Conducta",
