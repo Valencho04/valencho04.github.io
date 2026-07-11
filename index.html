@@ -257,35 +257,72 @@
     .schedule-table td { color: var(--text-muted); }
     .schedule-table tr:hover td { color: var(--text); }
 
-    .maps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 16px;
-    }
-
-    .map-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-      text-align: center;
-      transition: transform 0.2s;
-    }
-
-    .map-card:hover { transform: translateY(-4px); }
-
-    .map-card img {
+    .map-pool-table {
       width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
-      display: block;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 12px;
     }
 
-    .map-card .map-name {
-      padding: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
+    .map-pool-table th,
+    .map-pool-table td {
+      padding: 12px 10px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .map-pool-table th {
+      color: var(--gold);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.8rem;
+      background: var(--surface);
+    }
+
+    .map-pool-table .round-label-cell {
+      background: var(--surface);
+      text-align: left;
+      padding-left: 16px;
+    }
+
+    .map-pool-table .round-label-cell .round-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .map-pool-table .round-label-cell .round-bo {
+      display: block;
+      font-size: 0.75rem;
       color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .map-pool-cell {
+      background: var(--surface);
+    }
+
+    .map-pool-cell img {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 8px;
+      display: block;
+      margin: 0 auto 6px;
+      border: 1px solid var(--border);
+    }
+
+    .map-pool-cell .map-pool-name {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .map-pool-cell.empty-slot {
+      color: var(--border);
+      font-size: 1.3rem;
+      font-weight: 800;
     }
 
     .prize-box {
@@ -654,8 +691,10 @@
       .started .hero h1 { font-size: 1.3rem; }
       .section-title { font-size: 1.4rem; }
       .info-grid { grid-template-columns: 1fr 1fr; }
-      .maps-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-      .map-card .map-name { font-size: 0.75rem; padding: 6px; }
+      .map-pool-table th, .map-pool-table td { padding: 8px 4px; }
+      .map-pool-cell img { width: 38px; height: 38px; }
+      .map-pool-cell .map-pool-name { font-size: 0.62rem; }
+      .map-pool-table .round-label-cell .round-name { font-size: 0.8rem; }
       section { padding: 32px 0; }
       .container { padding: 0 16px; }
       .matches-grid { gap: 14px; }
@@ -663,7 +702,6 @@
 
     @media (max-width: 400px) {
       .info-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-      .maps-grid { grid-template-columns: repeat(2, 1fr); }
       .btn { padding: 14px 32px; font-size: 1rem; }
     }
   </style>
@@ -711,7 +749,7 @@ function render(d) {
   const regHtml = `<section style="text-align:center;"><h2 class="section-title">Formulario de Inscripción</h2><p style="color:var(--text-muted);margin-bottom:8px;">Completá el formulario con los datos de tu equipo para participar.</p><a href="${t.registrationUrl}" class="btn btn-primary" target="_blank" rel="noopener">Ir al formulario</a></section>`;
   const rulesHtml = `<section><h2 class="section-title">Reglas Destacadas</h2><ul class="rules-list" id="rulesList"></ul></section>`;
   const schedHtml = `<section><h2 class="section-title">Cronograma</h2><table class="schedule-table"><thead><tr><th>Fase</th><th>Fechas</th></tr></thead><tbody id="scheduleBody"></tbody></table></section>`;
-  const mapsHtml = `<section><h2 class="section-title">Mapas</h2><p style="text-align:center;color:var(--text-muted);margin-bottom:16px;">Todos los mapas disponibles en la ruleta:</p><div class="maps-grid" id="mapsGrid"></div></section>`;
+  const mapsHtml = `<section><h2 class="section-title">Mapas</h2><p style="text-align:center;color:var(--text-muted);margin-bottom:16px;">Pool de mapas por ronda:</p><div id="mapsPoolContainer" style="overflow-x:auto;"></div></section>`;
   const fixtureHtml = `<section id="fixtureSection"><h2 class="section-title">Fixture</h2><div id="fixtureContent"></div></section>`;
   const prizeHtml = `<section><h2 class="section-title">Premios</h2><div class="prize-box"><h3>${d.prize.title}</h3><p>${d.prize.description}</p></div></section>`;
   const footerHtml = `<footer><p>Organizado por <strong>${t.organizer}</strong> · Comunicación oficial por ${t.discord}</p><p style="margin-top:6px;"><a href="${t.registrationUrl}" target="_blank">Inscribite acá</a></p></footer>`;
@@ -740,10 +778,7 @@ function render(d) {
       `<tr><td>${s.phase}</td><td>${s.dates}</td></tr>`;
   });
 
-  d.maps.forEach(m => {
-    document.getElementById('mapsGrid').innerHTML +=
-      `<div class="map-card"><img src="${m.image}" alt="${m.name}" loading="lazy"><div class="map-name">${m.name}</div></div>`;
-  });
+  renderMapPool(d);
 
   renderFixture(d);
 }
@@ -876,6 +911,38 @@ function renderCivs(civs) {
       ? `<span class="civ-slot">${value}</span>`
       : `<span class="civ-slot tbd">Civ por definir</span>`;
   }).join('');
+}
+
+function renderMapPool(d) {
+  const container = document.getElementById('mapsPoolContainer');
+  const rounds = d.fixture && d.fixture.rounds ? d.fixture.rounds : [];
+  if (rounds.length === 0) { container.innerHTML = ''; return; }
+
+  const mapsByName = {};
+  (d.maps || []).forEach(m => { mapsByName[m.name] = m.image; });
+
+  const maxMaps = Math.max(...rounds.map(r => (r.mapPool || []).length), 1);
+
+  let headerCells = '';
+  for (let i = 1; i <= maxMaps; i++) headerCells += `<th>Mapa ${i}</th>`;
+
+  let rowsHtml = '';
+  rounds.forEach(r => {
+    const pool = r.mapPool || [];
+    let cells = '';
+    for (let i = 0; i < maxMaps; i++) {
+      const mapName = pool[i];
+      if (!mapName) {
+        cells += `<td class="map-pool-cell empty-slot">✕</td>`;
+      } else {
+        const img = mapsByName[mapName];
+        cells += `<td class="map-pool-cell">${img ? `<img src="${img}" alt="${mapName}" loading="lazy">` : ''}<div class="map-pool-name">${mapName}</div></td>`;
+      }
+    }
+    rowsHtml += `<tr><td class="round-label-cell"><span class="round-name">${r.name}</span><span class="round-bo">Bo${r.bestOf}</span></td>${cells}</tr>`;
+  });
+
+  container.innerHTML = `<table class="map-pool-table"><thead><tr><th></th>${headerCells}</tr></thead><tbody>${rowsHtml}</tbody></table>`;
 }
 </script>
 </body>

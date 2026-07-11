@@ -589,6 +589,11 @@
             ],
             "winner": null
           }
+        ],
+        "mapPool": [
+          "Arabia",
+          "Arena",
+          "Isla del Paraíso"
         ]
       },
       {
@@ -819,6 +824,11 @@
             ],
             "winner": null
           }
+        ],
+        "mapPool": [
+          "Arabia",
+          "Arena",
+          "Socotra"
         ]
       },
       {
@@ -937,6 +947,11 @@
             ],
             "winner": null
           }
+        ],
+        "mapPool": [
+          "Arabia",
+          "Arena",
+          "Túnel Amazónico"
         ]
       },
       {
@@ -1031,6 +1046,13 @@
             ],
             "winner": null
           }
+        ],
+        "mapPool": [
+          "Arabia",
+          "Arena",
+          "Claro Africano",
+          "Oasis",
+          "Isla del Paraíso"
         ]
       }
     ]
