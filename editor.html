@@ -331,7 +331,7 @@ const defaultData = {
     },
     {
       "label": "Inscripción",
-      "value": "10 Jul – 11 Ago"
+      "value": "11 Jul – 11 Ago"
     },
     {
       "label": "Partidas mín.",
@@ -341,7 +341,7 @@ const defaultData = {
   "rules": [
     {
       "title": "Admisión y ELO",
-      "text": "Todos los integrantes deben tener ELO histórico y actual entre 800 y 1300 (Maximo) en RM 1v1, con un mínimo de 40 partidas jugadas en RM. El promedio de ELO del equipo no debe superar los 1100 puntos. Se permite un jugador con hasta 1300 ELO, siempre que el promedio total del equipo no supere el límite de 1100. La organización realizará un análisis exhaustivo para detectar cuentas smurf, actividad sospechosa o perfiles cuyo nivel de juego sea significativamente superior al ELO registrado; ante cualquier discrepancia, la organización se reserva el derecho de admisión."
+      "text": "Rango de ELO 800–1100 en Ranked 1v1 (RM); se permite un jugador de hasta 1300 ELO siempre que el promedio del equipo no supere 1100. Mínimo 40 partidas jugadas en RM reciente, con verificación de perfiles (AoE2 Insights / Liquipedia) para detectar smurfs."
     },
     {
       "title": "Draft",
@@ -353,11 +353,11 @@ const defaultData = {
     },
     {
       "title": "Sala",
-      "text": "La arma el equipo con mayor ELO acumulado. Obligatorio: civs ocultas, espectadores con 2 min de delay, grabación activada y servidor acordado entre capitanes."
+      "text": "La arma el equipo con mayor ELO acumulado, con: 6 jugadores, sala pública, civs ocultas, espectadores con 2 min de delay y grabación obligatoria. Configuración de partida: mapa aleatorio tamaño mediano, velocidad normal (1.7), población 200, equipos fijos y condición de victoria por Conquista."
     },
     {
       "title": "Conducta",
-      "text": "El chat se limita a saludo, pausas justificadas y GG/WP. Ofensas, burlas o spam provocativo son derrota automática para el equipo infractor."
+      "text": "El laming (robo de recursos, matar animales del rival, empalizar campamentos enemigos) está 100% permitido. El chat se limita a pausas justificadas, problemas técnicos o GG/WP; ofensas, burlas o interacción inapropiada con espectadores es derrota automática para el infractor."
     },
     {
       "title": "Discord",
@@ -365,7 +365,7 @@ const defaultData = {
     },
     {
       "title": "Drops",
-      "text": "Se pausa y se intenta restaurar la partida. Si no es posible y hay una desventaja irremontable, el organizador define reinicio o victoria directa."
+      "text": "No se permiten restarts salvo autorización de la organización por bugs graves. Ante una caída, se pausa e intenta restaurar; si no se puede y hay desventaja irreparable, el organizador define reinicio o victoria directa."
     },
     {
       "title": "Horarios",
@@ -382,12 +382,20 @@ const defaultData = {
     {
       "title": "Suplentes",
       "text": "Cada equipo tiene permitido registrar a un (1) jugador suplente previo al inicio del torneo. Este jugador podrá participar ante situaciones imprevistas que impidan la asistencia de un integrante titular, siempre y cuando cumpla con los mismos requisitos de ELO (800-1100, con máximo de 1300 si el promedio lo permite) y sea aprobado por la organización al momento de la inscripción."
+    },
+    {
+      "title": "Reportes",
+      "text": "Cualquier inconveniente durante las partidas debe reportarse de inmediato a la organización, acompañado obligatoriamente de capturas de pantalla o grabaciones (recs) de la partida."
+    },
+    {
+      "title": "Sorteo de Fases",
+      "text": "Con los 16 equipos definidos, se asigna una seed a cada uno y se dividen en Grupo A (mejores seeds) y Grupo B (peores seeds). El sorteo enfrenta, de forma aleatoria, a un equipo del Grupo A contra uno del Grupo B en cada llave de Octavos."
     }
   ],
   "schedule": [
     {
       "phase": "Inscripción",
-      "dates": "10 de julio – 11 de agosto"
+      "dates": "11 de julio – 11 de agosto"
     },
     {
       "phase": "Octavos",
