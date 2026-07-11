@@ -8,7 +8,7 @@
     "discord": "Canal oficial de Discord de Nacho AoE",
     "logo": "shield-circle-logo.png",
     "backgroundHeader": "hero-banner-wordmark.png",
-    "registrationUrl": "https://docs.google.com/forms/d/e/1FAIpQLSd6WzE06SQOsLqvBII8LBLec7rxsVY8GAp8b8F-F-IyGA92tQ/viewform?usp=sharing&ouid=117786843446152372164",
+    "registrationUrl": "https://forms.gle/cQzDSUX8Pfy8WNC3A",
     "started": false
   },
   "infoCards": [
@@ -601,7 +601,7 @@
         "mapPool": [
           "Arabia",
           "Arena",
-          "Isla del Paraíso"
+          "Isla en equipos"
         ]
       },
       {
@@ -1060,9 +1060,10 @@
           "Arena",
           "Claro Africano",
           "Oasis",
-          "Isla en equipos"
+          "Isla del Paraíso"
         ]
       }
     ]
-  }
+  },
+  "rulesFile": "https://docs.google.com/document/d/1SO4anQUaUPiC7Qma7t6ENFLlsVVCa5Knc0PbILBa7zM/edit?usp=sharing"
 }

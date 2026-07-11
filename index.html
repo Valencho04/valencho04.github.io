@@ -234,6 +234,20 @@
       color: var(--gold);
     }
 
+    .rules-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .rules-link a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px dashed var(--gold-dim);
+      font-weight: 600;
+    }
+
+    .rules-link a:hover { color: #dbb85c; }
+
     .schedule-table {
       width: 100%;
       border-collapse: collapse;
@@ -747,7 +761,7 @@ function render(d) {
 
   const infoHtml = `<section><h2 class="section-title">Información General</h2><div class="info-grid" id="infoGrid"></div></section>`;
   const regHtml = `<section style="text-align:center;"><h2 class="section-title">Formulario de Inscripción</h2><p style="color:var(--text-muted);margin-bottom:8px;">Completá el formulario con los datos de tu equipo para participar.</p><a href="${t.registrationUrl}" class="btn btn-primary" target="_blank" rel="noopener">Ir al formulario</a></section>`;
-  const rulesHtml = `<section><h2 class="section-title">Reglas Destacadas</h2><ul class="rules-list" id="rulesList"></ul></section>`;
+  const rulesHtml = `<section><h2 class="section-title">Reglas Destacadas</h2><ul class="rules-list" id="rulesList"></ul><div class="rules-link"><a href="${d.rulesFile}" target="_blank">Leer reglamento completo →</a></div></section>`;
   const schedHtml = `<section><h2 class="section-title">Cronograma</h2><table class="schedule-table"><thead><tr><th>Fase</th><th>Fechas</th></tr></thead><tbody id="scheduleBody"></tbody></table></section>`;
   const mapsHtml = `<section><h2 class="section-title">Mapas</h2><p style="text-align:center;color:var(--text-muted);margin-bottom:16px;">Pool de mapas por ronda:</p><div id="mapsPoolContainer" style="overflow-x:auto;"></div></section>`;
   const fixtureHtml = `<section id="fixtureSection"><h2 class="section-title">Fixture</h2><div id="fixtureContent"></div></section>`;
